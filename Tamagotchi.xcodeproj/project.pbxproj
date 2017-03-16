@@ -15,6 +15,7 @@
 		B2BD39E81E7B10BF002C051B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2BD39E61E7B10BF002C051B /* Main.storyboard */; };
 		B2BD39EA1E7B10BF002C051B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2BD39E91E7B10BF002C051B /* Assets.xcassets */; };
 		B2BD39ED1E7B10BF002C051B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2BD39EB1E7B10BF002C051B /* LaunchScreen.storyboard */; };
+		B2BD39F51E7B1ED8002C051B /* Blob.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BD39F41E7B1ED8002C051B /* Blob.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		B2BD39E91E7B10BF002C051B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B2BD39EC1E7B10BF002C051B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B2BD39EE1E7B10BF002C051B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B2BD39F41E7B1ED8002C051B /* Blob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blob.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				B2BD39DC1E7B10BF002C051B /* AppDelegate.swift */,
+				B2BD39F41E7B1ED8002C051B /* Blob.swift */,
 				B2BD39DE1E7B10BF002C051B /* GameScene.sks */,
 				B2BD39E01E7B10BF002C051B /* Actions.sks */,
 				B2BD39E21E7B10BF002C051B /* GameScene.swift */,
@@ -148,6 +151,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2BD39F51E7B1ED8002C051B /* Blob.swift in Sources */,
 				B2BD39E31E7B10BF002C051B /* GameScene.swift in Sources */,
 				B2BD39E51E7B10BF002C051B /* GameViewController.swift in Sources */,
 				B2BD39DD1E7B10BF002C051B /* AppDelegate.swift in Sources */,

@@ -10,34 +10,21 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-    
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+    let blob = Blob()
     
     override func didMove(to view: SKView) {
+        // adding a boder along edges of screen.
+        let borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+        borderBody.friction = 0
+        self.physicsBody = borderBody
+        self.addChild(blob)
+        
+        
+        
     }
     
-    func touchDown(atPoint pos : CGPoint) {
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-    }
-    
-    override func update(_ currentTime: TimeInterval) {
+    enum thePhysics:UInt32 {
+        case blob = 1
+        case wall = 2
     }
 }

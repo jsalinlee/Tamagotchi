@@ -12,33 +12,39 @@ import GameplayKit
 import CoreLocation
 import MapKit
 
-class GameViewController: UIViewController, CLLocationManagerDelegate {
+class GameViewController: UIViewController {
     
-    var locationManager: CLLocationManager!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        view.backgroundColor = UIColor.gray
-    }
-
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse {
-            if CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self) {
-                if CLLocationManager.isRangingAvailable() {
-                }
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        if let view = self.view as! SKView? {
+            // Load the SKScene from 'GameScene.sks'
+            if let scene = SKScene(fileNamed: "GameScene") {
+                // Set the scale mode fit the window:
+                scene.scaleMode = .aspectFill
+                // Size our scene to fit the view exactly:
+                scene.size = view.bounds.size
+                // Show the new scene:
+                view.presentScene(scene)
             }
+            view.ignoresSiblingOrder = true
+            view.showsFPS = true
+            view.showsNodeCount = true
         }
     }
+    override var shouldAutorotate: Bool {
+        return true
+    }
     
-//    func getLocation()
+    override var supportedInterfaceOrientations:
+        UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
     }
-
+    
     override var prefersStatusBarHidden: Bool {
         return true
     }
