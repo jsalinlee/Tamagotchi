@@ -31,14 +31,6 @@ class GameViewController: UIViewController {
             view.showsNodeCount = true
         }
     }
-    override var shouldAutorotate: Bool {
-        return true
-    }
-    
-    override var supportedInterfaceOrientations:
-        UIInterfaceOrientationMask {
-        return .portrait
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
