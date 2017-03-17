@@ -12,7 +12,8 @@ import GameplayKit
 class GameScene: SKScene {
     let blob = Blob()
     var background = SKSpriteNode(imageNamed: "colored_castle")
-   
+    let ground = Ground()
+    
     override func didMove(to view: SKView) {
         // adding a boder along edges of screen.
         let borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
@@ -24,6 +25,11 @@ class GameScene: SKScene {
         borderBody.friction = 0
         self.physicsBody = borderBody
         self.addChild(blob)
+        
+        ground.position = CGPoint(x:-self.size.width*2, y:-200)
+        ground.size = CGSize(width: self.size.width*6, height: 0)
+        ground.createChildren()
+        self.addChild(ground)
         
     }
    

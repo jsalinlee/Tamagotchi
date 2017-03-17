@@ -29,7 +29,7 @@ class Blob:SKSpriteNode {
         statusText.text = self.gender[0] + " looks a little hungry..."
         statusText.fontColor = UIColor.black
         statusText.fontName="Avenir"
-        statusText.position = CGPoint(x: self.position.x, y: self.position.y + 70)
+        statusText.position = CGPoint(x: self.position.x, y: self.position.y + 200)
         addChild(statusText)
     }
     func createAnimation() {

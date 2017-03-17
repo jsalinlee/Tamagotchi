@@ -22,6 +22,7 @@
 		B2BD39F71E7B31D0002C051B /* InventoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BD39F61E7B31D0002C051B /* InventoryTableViewController.swift */; };
 		D5CBD7791E7B793C0099BE54 /* CustomPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CBD7781E7B793C0099BE54 /* CustomPointAnnotation.swift */; };
 		D5CBD77D1E7B9C720099BE54 /* Sound in Resources */ = {isa = PBXBuildFile; fileRef = D5CBD77C1E7B9C720099BE54 /* Sound */; };
+		D5CBD7811E7BD1970099BE54 /* Ground.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CBD7801E7BD1970099BE54 /* Ground.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		B2BD39F61E7B31D0002C051B /* InventoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InventoryTableViewController.swift; sourceTree = "<group>"; };
 		D5CBD7781E7B793C0099BE54 /* CustomPointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPointAnnotation.swift; sourceTree = "<group>"; };
 		D5CBD77C1E7B9C720099BE54 /* Sound */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sound; sourceTree = "<group>"; };
+		D5CBD7801E7BD1970099BE54 /* Ground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ground.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 				B2BD39E41E7B10BF002C051B /* GameViewController.swift */,
 				B2BD39E61E7B10BF002C051B /* Main.storyboard */,
 				B2BD39E91E7B10BF002C051B /* Assets.xcassets */,
+				D5CBD7801E7BD1970099BE54 /* Ground.swift */,
 				D5CBD7781E7B793C0099BE54 /* CustomPointAnnotation.swift */,
 				B2BD39EB1E7B10BF002C051B /* LaunchScreen.storyboard */,
 				B2BD39EE1E7B10BF002C051B /* Info.plist */,
@@ -185,6 +188,7 @@
 				B284F7A11E7B6146002D06BE /* BerryMapViewController.swift in Sources */,
 				B2BD39E31E7B10BF002C051B /* GameScene.swift in Sources */,
 				1BFC854B1E7B742A0098A295 /* SaveGame.xcdatamodeld in Sources */,
+				D5CBD7811E7BD1970099BE54 /* Ground.swift in Sources */,
 				B2BD39E51E7B10BF002C051B /* GameViewController.swift in Sources */,
 				B2BD39DD1E7B10BF002C051B /* AppDelegate.swift in Sources */,
 			);
