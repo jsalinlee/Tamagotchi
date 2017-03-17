@@ -6,7 +6,6 @@
 //  Copyright © 2017 braggeInc. All rights reserved.
 //
 
-import Foundation
 import SpriteKit
 
 class Blob:SKSpriteNode {
@@ -15,6 +14,7 @@ class Blob:SKSpriteNode {
     let textureAtlas = SKTextureAtlas(named: "Blobs")
     var gender = [String]()
     var statusText = SKLabelNode()
+    var sitAnimation = SKAction()
     
     
     init(){
@@ -24,12 +24,20 @@ class Blob:SKSpriteNode {
         self.physicsBody = SKPhysicsBody(texture: texture, size: initialSize)
         self.position = CGPoint(x:0, y: 0)
         self.gender = determineGender()
-        statusText.text = "LSRIS"
-            //  self.gender[0] + " looks a little hungry..."
-        statusText.fontColor = UIColor.white
-        statusText.fontName = "Bodoni Ornaments"
-        statusText.position = CGPoint(x: self.position.x, y: self.position.y + 90)
+
+        createAnimation()
+        self.run(sitAnimation)
+        statusText.text = self.gender[0] + " looks a little hungry..."
+        statusText.fontColor = UIColor.black
+        statusText.fontName="Avenir"
+        statusText.position = CGPoint(x: self.position.x, y: self.position.y + 200)
+
         addChild(statusText)
+    }
+    func createAnimation() {
+        let sitFrames:[SKTexture] = [textureAtlas.textureNamed("blobBoy"), textureAtlas.textureNamed("blobBoyUp")]
+        let sitAction = SKAction.animate(with: sitFrames, timePerFrame: 0.50)
+        sitAnimation = SKAction.repeatForever(sitAction)
     }
     
     func determineGender() -> [String] {

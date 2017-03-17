@@ -9,14 +9,16 @@
 import UIKit
 
 class InventoryTableViewCell: UITableViewCell {
-
+    var cellDelegate: ActionButtonDelegate?
     @IBOutlet weak var itemLabel: UILabel!
     @IBOutlet weak var actionButtonLabel: UIButton!
     
     @IBAction func actionButtonPressed(_ sender: UIButton) {
-        
+        self.cellDelegate?.actionDelegateButtonPressed()
+        let str = self.itemLabel!.text
+        let end = str!.index(str!.startIndex, offsetBy: 1)
+        print("Action button pressed - \(str!.substring(to: end))")
     }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -27,5 +29,5 @@ class InventoryTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
 }

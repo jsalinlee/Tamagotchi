@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Unknown constraint types" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -26,7 +27,7 @@
                     <navigationItem key="navigationItem" title="iMon" id="zGT-nd-VgL">
                         <barButtonItem key="leftBarButtonItem" title="Items" id="mrx-Kx-txg">
                             <connections>
-                                <segue destination="Kih-yn-E2L" kind="show" id="GWF-nE-Eqk"/>
+                                <segue destination="Kih-yn-E2L" kind="show" identifier="openItemInventory" id="GWF-nE-Eqk"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Find Berries" id="Csf-yD-KRV">
@@ -63,29 +64,32 @@
                                             </constraints>
                                             <state key="normal" title="actionButton"/>
                                             <connections>
-                                                <action selector="actionButtonPressed:" destination="RPX-QX-22m" eventType="touchUpInside" id="cu6-39-9IH"/>
+                                                <action selector="actionButtonPressed:" destination="RPX-QX-22m" eventType="touchUpInside" id="F8t-6e-BKo"/>
+                                                <action selector="actionButtonPressed:" destination="Kih-yn-E2L" eventType="touchUpInside" id="lHK-Xx-9AI"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="itemLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1dp-Un-76E">
-                                            <rect key="frame" x="8" y="8" width="269" height="27.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="itemLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n57-vl-r9u">
+                                            <rect key="frame" x="8" y="11" width="269" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="1dp-Un-76E" firstAttribute="leading" secondItem="t5I-nW-sFE" secondAttribute="leadingMargin" id="6PD-cj-AdU"/>
+                                        <constraint firstAttribute="leading" secondItem="t5I-nW-sFE" secondAttribute="leadingMargin" id="6PD-cj-AdU"/>
                                         <constraint firstAttribute="trailing" secondItem="c4b-SI-GOL" secondAttribute="trailing" constant="8" id="Ieh-xB-sjL"/>
                                         <constraint firstItem="c4b-SI-GOL" firstAttribute="top" secondItem="t5I-nW-sFE" secondAttribute="top" constant="6" id="MjP-rr-oWA"/>
-                                        <constraint firstItem="1dp-Un-76E" firstAttribute="top" secondItem="t5I-nW-sFE" secondAttribute="topMargin" id="U9U-Qv-0f1"/>
-                                        <constraint firstItem="c4b-SI-GOL" firstAttribute="leading" secondItem="1dp-Un-76E" secondAttribute="trailing" id="gtM-Dg-1qw"/>
+                                        <constraint firstItem="n57-vl-r9u" firstAttribute="leading" secondItem="t5I-nW-sFE" secondAttribute="leading" constant="8" id="OEq-kJ-XHg"/>
+                                        <constraint firstItem="n57-vl-r9u" firstAttribute="top" secondItem="t5I-nW-sFE" secondAttribute="top" constant="11" id="PpJ-Cn-yCd"/>
+                                        <constraint firstAttribute="top" secondItem="t5I-nW-sFE" secondAttribute="topMargin" id="U9U-Qv-0f1"/>
+                                        <constraint firstAttribute="bottom" secondItem="n57-vl-r9u" secondAttribute="bottom" constant="11" id="gkl-ip-wDn"/>
+                                        <constraint firstItem="c4b-SI-GOL" firstAttribute="leading" secondItem="n57-vl-r9u" secondAttribute="trailing" id="k12-RA-q7w"/>
                                         <constraint firstAttribute="bottom" secondItem="c4b-SI-GOL" secondAttribute="bottom" constant="6" id="p6G-Zf-K3V"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="1dp-Un-76E" secondAttribute="bottom" id="zgg-as-cKl"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="actionButtonLabel" destination="c4b-SI-GOL" id="hmn-VT-uQe"/>
-                                    <outlet property="itemLabel" destination="1dp-Un-76E" id="FwC-ya-OdE"/>
+                                    <outlet property="actionButtonLabel" destination="c4b-SI-GOL" id="1Wo-Mx-LPL"/>
+                                    <outlet property="itemLabel" destination="n57-vl-r9u" id="ckf-RR-Jxa"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -114,14 +118,14 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="OVJ-0V-C24">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </mapView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jce-cn-96V">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jce-cn-96V">
                                 <rect key="frame" x="50" y="514" width="275" height="130"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="275" id="7jR-IQ-nyi"/>
                                     <constraint firstAttribute="height" constant="130" id="ZvC-Td-Xjx"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <color key="textColor" red="0.3240810037316868" green="0.43716073688499912" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -137,6 +141,7 @@
                     </view>
                     <connections>
                         <outlet property="berryMap" destination="OVJ-0V-C24" id="vLV-q7-Gpa"/>
+                        <outlet property="messageLabel" destination="Jce-cn-96V" id="1W8-pg-kcq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wMM-L9-uUu" userLabel="First Responder" sceneMemberID="firstResponder"/>
