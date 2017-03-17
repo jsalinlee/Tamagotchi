@@ -56,6 +56,14 @@ class GameScene: SKScene {
                 playerStats?.lastFeed = Date() as NSDate?
                 playerStats?.lastPlay = Date() as NSDate?
                 playerStats?.lastCheck = Date() as NSDate?
+                let gend = arc4random_uniform(2)
+                if gend == 1 {
+                    playerStats?.gender = true
+                }
+                else {
+                    playerStats?.gender = false
+                }
+
                 do {
                     try context.save()
                 } catch { print("Error") }
@@ -70,6 +78,14 @@ class GameScene: SKScene {
             playerStats?.lastFeed = Date() as NSDate?
             playerStats?.lastPlay = Date() as NSDate?
             playerStats?.lastCheck = Date() as NSDate?
+            let gend = arc4random_uniform(2)
+            if gend == 1 {
+                playerStats?.gender = true
+            }
+            else {
+                playerStats?.gender = false
+            }
+
             do {
                 try context.save()
             } catch { print("Error") }
@@ -79,18 +95,24 @@ class GameScene: SKScene {
         let elapsed = Date().timeIntervalSince(playerStats!.lastCheck! as Date)
         print("\(elapsed/60) minutes")
         playerStats?.hunger -= Int(elapsed/60)
+        var genderString:String
+        if (playerStats?.gender)! {
+            genderString = "She"
+        } else {
+            genderString = "He"
+        }
         if (playerStats?.hunger)! > 100 {
             playerStats?.hunger = 100
         }
         if (playerStats?.hunger)! < 0 {
             playerStats?.hunger = 0
-            blob.statusText.text = "\(blob.gender[0]) is starving!"
+            blob.statusText.text = "\(genderString) is starving!"
         } else if (playerStats?.hunger)! < 50 {
-            blob.statusText.text = "\(blob.gender[0]) is very hungry."
+            blob.statusText.text = "\(genderString) is very hungry."
         } else if (playerStats?.hunger)! < 70 {
-            blob.statusText.text = "\(blob.gender[0]) is a little hungry..."
+            blob.statusText.text = "\(genderString) is a little hungry..."
         } else {
-            blob.statusText.text = "\(blob.gender[0]) is feeling fine!"
+            blob.statusText.text = "\(genderString) is feeling fine!"
         }
         hud.setHungerDisplay(newHealth: Int((playerStats?.hunger)!))
         playerStats!.lastCheck = NSDate()

@@ -26,8 +26,8 @@ class HUD: SKNode {
         print(cameraOrigin)
         
         hungerStatus = SKSpriteNode(texture: textureAtlas.textureNamed("hungerFull"))
-        hungerStatus.size = CGSize(width: 30, height: 30)
-        hungerStatus.position = CGPoint(x: cameraOrigin.x - 280, y: cameraOrigin.y - 89)
+        hungerStatus.size = CGSize(width: 30, height: 40)
+        hungerStatus.position = CGPoint(x: cameraOrigin.x - 310, y: cameraOrigin.y - 94)
 
         self.addChild(hungerStatus)
         for index in 0..<100 {
@@ -46,7 +46,7 @@ class HUD: SKNode {
             backHungerBarNode.size = CGSize(width: 1, height: 10)
             hungerBarNode.size = CGSize(width: 1, height: 10)
 
-            let xPos = cameraOrigin.x + CGFloat(index * 2) - 240
+            let xPos = cameraOrigin.x + CGFloat(index * 2) - 270
             let yPos = cameraOrigin.y - 94
             
             backHungerBarNode.position = CGPoint(x: xPos, y: yPos)
@@ -58,7 +58,7 @@ class HUD: SKNode {
         
         happyStatus = SKSpriteNode(texture: textureAtlas.textureNamed("happyMed"))
         happyStatus.size = CGSize(width: 30, height: 30)
-        happyStatus.position = CGPoint(x: cameraOrigin.x - 280, y: cameraOrigin.y - 164)
+        happyStatus.position = CGPoint(x: cameraOrigin.x - 310, y: cameraOrigin.y - 144)
         self.addChild(happyStatus)
 
         for index in 0 ..< 100 {
@@ -77,8 +77,8 @@ class HUD: SKNode {
             backHappyBarNode.size = CGSize(width: 1, height: 10)
             happinessBarNode.size = CGSize(width: 1, height: 10)
 
-            let xPos = cameraOrigin.x + CGFloat(index * 2) - 240
-            let yPos = cameraOrigin.y - 164
+            let xPos = cameraOrigin.x + CGFloat(index * 2) - 270
+            let yPos = cameraOrigin.y - 144
 
 
             backHappyBarNode.position = CGPoint(x: xPos, y: yPos)
