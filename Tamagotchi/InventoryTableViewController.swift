@@ -11,7 +11,7 @@ import CoreData
 
 class InventoryTableViewController: UITableViewController, ActionButtonDelegate {
     var itemSections = ["Food", "Toys"]
-    var food = ["Red Berry", "Blue Berry", "Green Berry", "Purple Berry"]
+    var food = ["Red Berry", "Blue Berry", "Green Berry", "Yellow Berry"]
     var foodCounts = [Int32]()
     var toys = ["Red rubber ball", "Kendama", "Gojira Action Figure"]
     var toyCounts = [Int32]()
@@ -36,7 +36,7 @@ class InventoryTableViewController: UITableViewController, ActionButtonDelegate 
         do {
             // If inventory does not exist, initialize empty inventory
             let result = try managedObjectContext.fetch(request)
-            let item = result as! [Inventory]
+            var item = result as! [Inventory]
             if item.count == 0 {
                 let playerInv = Inventory(context: managedObjectContext)
                 playerInv.redCount = 0
@@ -49,6 +49,7 @@ class InventoryTableViewController: UITableViewController, ActionButtonDelegate 
                 do {
                     try managedObjectContext.save()
                 } catch { print("Error") }
+                item = [playerInv]
             }
             // Assign the inventory instance to self
             self.inventoryList = item[0]
@@ -56,13 +57,13 @@ class InventoryTableViewController: UITableViewController, ActionButtonDelegate 
             self.toyCounts = [(inventoryList?.rubberBall)!, (inventoryList?.kendama)!, (inventoryList?.gojira)!]
         } catch {
             let playerInv = Inventory(context: managedObjectContext)
-            playerInv.redCount = 3
-            playerInv.blueCount = 3
-            playerInv.greenCount = 3
-            playerInv.yellowCount = 3
-            playerInv.gojira = 3
-            playerInv.kendama = 3
-            playerInv.rubberBall = 3
+            playerInv.redCount = 0
+            playerInv.blueCount = 0
+            playerInv.greenCount = 0
+            playerInv.yellowCount = 0
+            playerInv.gojira = 0
+            playerInv.kendama = 0
+            playerInv.rubberBall = 0
             do {
                 try managedObjectContext.save()
             } catch { print("Error") }
