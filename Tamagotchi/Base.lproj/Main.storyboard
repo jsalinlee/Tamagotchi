@@ -26,7 +26,7 @@
                     <navigationItem key="navigationItem" title="iMon" id="zGT-nd-VgL">
                         <barButtonItem key="leftBarButtonItem" title="Items" id="mrx-Kx-txg">
                             <connections>
-                                <segue destination="Kih-yn-E2L" kind="show" id="GWF-nE-Eqk"/>
+                                <segue destination="Kih-yn-E2L" kind="show" identifier="openItemInventory" id="GWF-nE-Eqk"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Find Berries" id="Csf-yD-KRV">
@@ -53,7 +53,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RPX-QX-22m" id="t5I-nW-sFE">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c4b-SI-GOL">
@@ -63,7 +63,8 @@
                                             </constraints>
                                             <state key="normal" title="actionButton"/>
                                             <connections>
-                                                <action selector="actionButtonPressed:" destination="RPX-QX-22m" eventType="touchUpInside" id="cu6-39-9IH"/>
+                                                <action selector="actionButtonPressed:" destination="RPX-QX-22m" eventType="touchUpInside" id="F8t-6e-BKo"/>
+                                                <action selector="actionButtonPressed:" destination="Kih-yn-E2L" eventType="touchUpInside" id="lHK-Xx-9AI"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="itemLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1dp-Un-76E">
@@ -84,8 +85,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="actionButtonLabel" destination="c4b-SI-GOL" id="hmn-VT-uQe"/>
-                                    <outlet property="itemLabel" destination="1dp-Un-76E" id="FwC-ya-OdE"/>
+                                    <outlet property="actionButtonLabel" destination="c4b-SI-GOL" id="1Wo-Mx-LPL"/>
+                                    <outlet property="itemLabel" destination="1dp-Un-76E" id="l8x-bk-Ms4"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

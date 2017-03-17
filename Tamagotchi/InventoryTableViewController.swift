@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class InventoryTableViewController: UITableViewController {
+class InventoryTableViewController: UITableViewController, ActionButtonDelegate {
     var itemSections = ["Food", "Toys"]
     var food = ["Red Berry", "Blue Berry", "Green Berry", "Purple Berry"]
     var foodCounts = [Int32]()
@@ -18,7 +18,7 @@ class InventoryTableViewController: UITableViewController {
     let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var inventoryList:Inventory?
     var inventoryCell = InventoryTableViewCell()
-
+    var cellIndex = Int()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.fetchAllItems()
@@ -83,7 +83,11 @@ class InventoryTableViewController: UITableViewController {
         }
         return 0
     }
-
+    
+    func actionDelegateButtonPressed() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "InventoryCell", for: indexPath) as! InventoryTableViewCell
         if indexPath.section == 0 {
@@ -93,11 +97,18 @@ class InventoryTableViewController: UITableViewController {
             cell.itemLabel.text = "\(toys[indexPath.row]): \(toyCounts[indexPath.row])"
             cell.actionButtonLabel.setTitle("Play", for: .normal)
         }
+        cell.tag = indexPath.row
+        print(cell.tag)
+        cell.cellDelegate = self
         return cell
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return itemSections[section]
+    }
+    
+    @IBAction func actionButtonPressed(_ sender: UIButton) {
+        print(cellIndex)
     }
     
     override func didReceiveMemoryWarning() {

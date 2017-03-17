@@ -12,7 +12,7 @@ import GameplayKit
 import CoreLocation
 import MapKit
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController{
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -31,7 +31,7 @@ class GameViewController: UIViewController {
             view.showsNodeCount = true
         }
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
