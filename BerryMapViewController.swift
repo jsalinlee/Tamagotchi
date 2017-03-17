@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import CoreData
 
 class BerryMapViewController: UIViewController, CLLocationManagerDelegate {
     
@@ -16,6 +17,8 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var berryMap: MKMapView!
     
     let manager = CLLocationManager()
+    let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var coordinatesList = [Coordinates]()
     var firstRun = true
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
@@ -42,6 +45,39 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate {
         //        print(location.coordinate)
         self.berryMap.showsUserLocation = true
     }
+    
+    func fetchAllItems() {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Coordinates")
+        do {
+            // If berry list does not exist, initialize empty berry list
+            let result = try managedObjectContext.fetch(request)
+            let item = result as! [Coordinates]
+            if item.count == 0 {
+                print("Generating new locations")
+                generateAnnoLoc()
+                do {
+                    try managedObjectContext.save()
+                } catch { print("Error") }
+            }
+            else {
+                print("Found existing coordinates of length \(item.count)")
+                coordinatesList = item
+                existingAnnoLoc()
+                for i in item {
+                    print("Stored: \(i.longitude), \(i.latitude)")
+                }
+            }
+        } catch {
+            print("Error - coordinates list empty")
+            generateAnnoLoc()
+            do {
+                try managedObjectContext.save()
+            } catch { print("Error") }
+
+        }
+        
+    }
+    
     func generateAnnoLoc() {
         
         var num = 0
@@ -52,13 +88,39 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate {
             //Add Annotation
             let annotation = MKPointAnnotation()
             annotation.coordinate = generateRandomCoordinates(min: 200, max: 400) //this will be the maximum and minimum distance of the annotation from the current Location (Meters)
+            let coord = annotation.coordinate
+            let coordObject = Coordinates(context: managedObjectContext)
+            coordObject.latitude = coord.latitude
+            coordObject.longitude = coord.longitude
+            coordObject.color = Int16(arc4random_uniform(4))
+            coordinatesList.append(coordObject)
+            do {
+                try managedObjectContext.save()
+            } catch {
+                print("Error!")
+            }
+            
             annotation.title = "Annotation Title"
             annotation.subtitle = "SubTitle"
             berryMap.addAnnotation(annotation)
             
         }
-        
     }
+    func existingAnnoLoc() {
+        
+        //First we declare While to repeat adding Annotation
+        for i in 0..<10 {
+            //Add Annotation
+            let annotation = MKPointAnnotation()
+            annotation.coordinate =  CLLocationCoordinate2DMake(coordinatesList[i].latitude, coordinatesList[i].longitude)
+            annotation.title = "Annotation Title"
+            annotation.subtitle = "SubTitle"
+            berryMap.addAnnotation(annotation)
+            
+        }
+    }
+    
+    
     func generateRandomCoordinates(min: UInt32, max: UInt32)-> CLLocationCoordinate2D {
         //Get the Current Location's longitude and latitude
         //        let location: CLLocationCoordinate2D =  CLLocationCoordinate2DMake(37.375578, -121.91007)
@@ -104,7 +166,11 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate {
         manager.startUpdatingLocation()
         //        manager.stopUpdatingLocation()
         //        print(manager.location)
-        generateAnnoLoc()
+        self.fetchAllItems()
+        for i in coordinatesList {
+            print("\(i): \(i.longitude), \(i.latitude)")
+        }
+//        generateAnnoLoc()          <- now handled by fetchAllItems
         
     }
     
