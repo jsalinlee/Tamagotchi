@@ -35,19 +35,19 @@ class HUD: SKNode {
             var hungerBarNode = SKSpriteNode()
             if index == 0 {
                 backHungerBarNode = SKSpriteNode(texture: textureAtlas.textureNamed("barBackLeft"))
-                hungerBarNode = SKSpriteNode(texture: textureAtlas.textureNamed("barRedLeft"))
+                hungerBarNode = SKSpriteNode(texture: textureAtlas.textureNamed("barGreenLeft"))
             } else if index == 99 {
                 backHungerBarNode = SKSpriteNode(texture: textureAtlas.textureNamed("barBackRight"))
-                hungerBarNode = SKSpriteNode(texture: textureAtlas.textureNamed("barRedRight"))
+                hungerBarNode = SKSpriteNode(texture: textureAtlas.textureNamed("barGreenRight"))
             } else {
                 backHungerBarNode = SKSpriteNode(texture: textureAtlas.textureNamed("barBackMid"))
-                hungerBarNode = SKSpriteNode(texture: textureAtlas.textureNamed("barRedMid"))
+                hungerBarNode = SKSpriteNode(texture: textureAtlas.textureNamed("barGreenMid"))
             }
             backHungerBarNode.size = CGSize(width: 1, height: 10)
             hungerBarNode.size = CGSize(width: 1, height: 10)
 
             let xPos = cameraOrigin.x + CGFloat(index * 2) - 240
-            let yPos = cameraOrigin.y - 164
+            let yPos = cameraOrigin.y - 94
             
             backHungerBarNode.position = CGPoint(x: xPos, y: yPos)
             hungerBarNode.position = CGPoint(x: xPos, y: yPos)
@@ -55,14 +55,9 @@ class HUD: SKNode {
             self.addChild(backHungerBarNode)
             self.addChild(hungerBarNode)
         }
+        
         happyStatus = SKSpriteNode(texture: textureAtlas.textureNamed("happyMed"))
         happyStatus.size = CGSize(width: 30, height: 30)
-        happyStatus.position = CGPoint(x: cameraOrigin.x - 280, y: cameraOrigin.y - 164)
-        self.addChild(happyStatus)
-        
-
-        happyStatus = SKSpriteNode(texture: textureAtlas.textureNamed("happyMed"))
-        happyStatus.size = CGSize(width: 35, height: 35)
         happyStatus.position = CGPoint(x: cameraOrigin.x - 280, y: cameraOrigin.y - 164)
         self.addChild(happyStatus)
 
@@ -71,19 +66,19 @@ class HUD: SKNode {
             var happinessBarNode = SKSpriteNode()
             if index == 0 {
                 backHappyBarNode = SKSpriteNode(texture: textureAtlas.textureNamed("barBackLeft"))
-                happinessBarNode = SKSpriteNode(texture: textureAtlas.textureNamed("barGreenLeft"))
+                happinessBarNode = SKSpriteNode(texture: textureAtlas.textureNamed("barRedLeft"))
             } else if index == 99 {
                 backHappyBarNode = SKSpriteNode(texture: textureAtlas.textureNamed("barBackRight"))
-                happinessBarNode = SKSpriteNode(texture: textureAtlas.textureNamed("barGreenRight"))
+                happinessBarNode = SKSpriteNode(texture: textureAtlas.textureNamed("barRedRight"))
             } else {
                 backHappyBarNode = SKSpriteNode(texture: textureAtlas.textureNamed("barBackMid"))
-                happinessBarNode = SKSpriteNode(texture: textureAtlas.textureNamed("barGreenMid"))
+                happinessBarNode = SKSpriteNode(texture: textureAtlas.textureNamed("barRedMid"))
             }
             backHappyBarNode.size = CGSize(width: 1, height: 10)
             happinessBarNode.size = CGSize(width: 1, height: 10)
 
             let xPos = cameraOrigin.x + CGFloat(index * 2) - 240
-            let yPos = cameraOrigin.y - 94
+            let yPos = cameraOrigin.y - 164
 
 
             backHappyBarNode.position = CGPoint(x: xPos, y: yPos)

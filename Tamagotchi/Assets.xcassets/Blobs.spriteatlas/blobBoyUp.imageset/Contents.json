@@ -6,12 +6,11 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "blobBoyUp@2x-1.png",
+      "filename" : "blobBoyUp-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "blobBoyUp@3x-1.png",
       "scale" : "3x"
     }
   ],
