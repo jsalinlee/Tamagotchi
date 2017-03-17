@@ -78,7 +78,7 @@ class GameScene: SKScene {
 
         let elapsed = Date().timeIntervalSince(playerStats!.lastCheck! as Date)
         print("\(elapsed/60) minutes")
-        playerStats?.hunger -= Int(elapsed/360)
+        playerStats?.hunger -= Int(elapsed/60)
         if (playerStats?.hunger)! > 100 {
             playerStats?.hunger = 100
         }
