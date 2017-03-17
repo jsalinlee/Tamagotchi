@@ -14,8 +14,10 @@
         <attribute name="rubberBall" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="yellowCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
+    <entity name="Player" representedClassName="Player" syncable="YES" codeGenerationType="class"/>
     <elements>
         <element name="Coordinates" positionX="-63" positionY="36" width="128" height="90"/>
         <element name="Inventory" positionX="-63" positionY="-18" width="128" height="150"/>
+        <element name="Player" positionX="-63" positionY="36" width="128" height="45"/>
     </elements>
 </model>
