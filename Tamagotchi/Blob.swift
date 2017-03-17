@@ -34,6 +34,7 @@ class Blob:SKSpriteNode {
 
         addChild(statusText)
     }
+    
     func createAnimation() {
         let sitFrames:[SKTexture] = [textureAtlas.textureNamed("blobBoy"), textureAtlas.textureNamed("blobBoyUp")]
         let sitAction = SKAction.animate(with: sitFrames, timePerFrame: 0.50)
@@ -48,11 +49,6 @@ class Blob:SKSpriteNode {
             return ["He", "his"]
         }
     }
-    
-    
-    func contact(){}
-    
-    func onTap(){}
     
     required init (coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!

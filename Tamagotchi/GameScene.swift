@@ -15,8 +15,9 @@ class GameScene: SKScene {
     let ground = Ground()
     let hud = HUD()
     let cam = SKCameraNode()
-
     
+    var touchPoint: CGPoint = CGPoint()
+    var touching: Bool = false
     override func didMove(to view: SKView) {
         // adding a border along edges of screen.
         let borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
@@ -41,10 +42,36 @@ class GameScene: SKScene {
         hud.createHudNodes(screenSize: self.size)
         self.camera!.addChild(hud)
     }
+    
+    func touchesBegan(touches: Set<NSObject>, withEven event: UIEvent) {
+        let touch = touches.first as! UITouch
+        let location = touch.location(in: self)
+        if blob.frame.contains(location) {
+            touchPoint = location
+            touching = true
+        }
+    }
+    
+    func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
+        let touch = touches.first as! UITouch
+        let location = touch.location(in: self)
+        touchPoint = location
+    }
+    
+    func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+        touching = false
+    }
    
     enum thePhysics:UInt32 {
         case blob = 1
         case wall = 2
     }
-
+    override func update(_ currentTime: CFTimeInterval) {
+        if touching {
+            let dt: CGFloat = 1.0/60.0
+            let distance = CGVector(dx: touchPoint.x-blob.position.x, dy: touchPoint.y-blob.position.y)
+            let velocity = CGVector(dx: distance.dx/dt, dy: distance.dy/dt)
+            blob.physicsBody!.velocity = velocity
+        }
+    }
 }
