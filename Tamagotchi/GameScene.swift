@@ -31,6 +31,13 @@ class GameScene: SKScene {
         ground.createChildren()
         self.addChild(ground)
         
+        self.camera = cam
+        self.addChild(self.camera!)
+        self.camera!.zPosition = 50
+        print(camera!.position)
+        hud.createHudNodes(screenSize: self.size)
+        self.camera!.addChild(hud)
+        
     }
    
     enum thePhysics:UInt32 {
