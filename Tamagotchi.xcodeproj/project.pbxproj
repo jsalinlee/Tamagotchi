@@ -198,12 +198,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5CBD7791E7B793C0099BE54 /* CustomPointAnnotation.swift in Sources */,
-<<<<<<< HEAD
 				B213D89B1E7BA4630016901B /* HUD.swift in Sources */,
 				B213D8991E7B9A5D0016901B /* InventoryTableViewCell.swift in Sources */,
-=======
-				1B30BCC81E7BEA2D003A1866 /* HUD.swift in Sources */,
->>>>>>> origin/backgroundFinalized
 				B2BD39F51E7B1ED8002C051B /* Blob.swift in Sources */,
 				B2BD39F71E7B31D0002C051B /* InventoryTableViewController.swift in Sources */,
 				B284F7A11E7B6146002D06BE /* BerryMapViewController.swift in Sources */,

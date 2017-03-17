@@ -11,15 +11,11 @@ import GameplayKit
 
 class GameScene: SKScene {
     let blob = Blob()
-<<<<<<< HEAD
-    let cam = SKCameraNode()
-    let hud = HUD()
-=======
     var background = SKSpriteNode(imageNamed: "colored_castle")
     let ground = Ground()
     let hud = HUD()
     let cam = SKCameraNode()
->>>>>>> origin/backgroundFinalized
+
     
     override func didMove(to view: SKView) {
         // adding a border along edges of screen.
@@ -33,24 +29,17 @@ class GameScene: SKScene {
         self.physicsBody = borderBody
         self.addChild(blob)
         
-<<<<<<< HEAD
-=======
         ground.position = CGPoint(x:-self.size.width*2, y:-200)
         ground.size = CGSize(width: self.size.width*6, height: 0)
         ground.createChildren()
         self.addChild(ground)
         
->>>>>>> origin/backgroundFinalized
         self.camera = cam
         self.addChild(self.camera!)
         self.camera!.zPosition = 50
         print(camera!.position)
         hud.createHudNodes(screenSize: self.size)
         self.camera!.addChild(hud)
-<<<<<<< HEAD
-=======
-        
->>>>>>> origin/backgroundFinalized
     }
    
     enum thePhysics:UInt32 {
