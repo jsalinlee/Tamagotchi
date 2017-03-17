@@ -111,6 +111,8 @@ class GameScene: SKScene {
         }
         if (playerStats?.hunger)! < 0 {
             playerStats?.hunger = 0
+        }
+        if (playerStats?.hunger)! < 25 {
             blob.statusText.text = "\(genderString) is starving!"
         } else if (playerStats?.hunger)! < 50 {
             blob.statusText.text = "\(genderString) is very hungry."
@@ -152,6 +154,21 @@ class GameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         hud.setHungerDisplay(newHealth: Int((playerStats?.hunger)!))
         hud.setHappinessDisplay(newHappiness: Int((playerStats?.happiness)!))
+        var genderString:String
+        if (playerStats?.gender)! {
+            genderString = "She"
+        } else {
+            genderString = "He"
+        }
+        if (playerStats?.hunger)! < 25 {
+            blob.statusText.text = "\(genderString) is starving!"
+        } else if (playerStats?.hunger)! < 50 {
+            blob.statusText.text = "\(genderString) is very hungry."
+        } else if (playerStats?.hunger)! < 70 {
+            blob.statusText.text = "\(genderString) is a little hungry..."
+        } else {
+            blob.statusText.text = "\(genderString) is feeling fine!"
+        }
         if touching {
             if touchPoint != blobInstance?.position
             {

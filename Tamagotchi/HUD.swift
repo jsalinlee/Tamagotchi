@@ -97,10 +97,10 @@ class HUD: SKNode {
                 hungerBar[index].run(fadeAction)
             }
         }
-        if newHealth <= 65 {
-            hungerStatus.texture = SKTexture(imageNamed: "hungerMid")
-        } else if newHealth <= 30 {
+        if newHealth <= 30 {
             hungerStatus.texture = SKTexture(imageNamed: "hungerEmpty")
+        } else if newHealth <= 65 {
+            hungerStatus.texture = SKTexture(imageNamed: "hungerMid")
         } else {
             hungerStatus.texture = SKTexture(imageNamed: "hungerFull")
         }
@@ -114,12 +114,12 @@ class HUD: SKNode {
                 happinessBar[index].run(fadeAction)
             }
         }
-        if newHappiness <= 70 {
-            happyStatus.texture = SKTexture(imageNamed: "happyMed")
+        if newHappiness <= 10 {
+            happyStatus.texture = SKTexture(imageNamed: "happyEmpty")
         } else if newHappiness <= 40 {
             happyStatus.texture = SKTexture(imageNamed: "happyLow")
-        } else if newHappiness <= 10 {
-            happyStatus.texture = SKTexture(imageNamed: "happyEmpty")
+        } else if newHappiness <= 70 {
+            happyStatus.texture = SKTexture(imageNamed: "happyMed")
         } else {
             happyStatus.texture = SKTexture(imageNamed: "happyHigh")
         }
