@@ -15,6 +15,7 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
     
     //Map
     @IBOutlet weak var berryMap: MKMapView!
+    var activePins = [MKPinAnnotationView]()
     
     let manager = CLLocationManager()
     let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -44,8 +45,16 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         //        print(location.speed)
         //        print(location.coordinate)
         self.berryMap.showsUserLocation = true
-        
-        
+        for pin in activePins {
+            let coord1 = CLLocation(latitude: (pin.annotation?.coordinate.latitude)!, longitude: (pin.annotation?.coordinate.longitude)!)
+            let coord2 = CLLocation(latitude: myLocation.latitude, longitude: myLocation.longitude)
+            let dist = coord1.distance(from: coord2)
+            print("\(coord1.coordinate.latitude), \(coord1.coordinate.longitude)")
+            if dist <= 10 {
+                print("In range to pick up \(pin.annotation?.title!!)")
+            }
+            
+        }
     }
     
     func fetchAllItems() {
@@ -55,22 +64,19 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
             let result = try managedObjectContext.fetch(request)
             let item = result as! [Coordinates]
             if item.count == 0 {
-                print("Generating new locations")
+//                print("Generating new locations")
                 generateAnnoLoc()
                 do {
                     try managedObjectContext.save()
                 } catch { print("Error") }
             }
             else {
-                print("Found existing coordinates of length \(item.count)")
+//                print("Found existing coordinates of length \(item.count)")
                 coordinatesList = item
                 existingAnnoLoc()
-                for i in item {
-                    print("Stored: \(i.longitude), \(i.latitude)")
-                }
             }
         } catch {
-            print("Error - coordinates list empty")
+//            print("Error - coordinates list empty")
             generateAnnoLoc()
             do {
                 try managedObjectContext.save()
@@ -125,8 +131,7 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
 //            mapView(mapView: berryMap, viewForAnnotation: annotation)
             let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "pin")
             berryMap.addAnnotation(pinAnnotationView.annotation!)
-
-            
+            activePins.append(pinAnnotationView)
         }
     }
     func existingAnnoLoc() {
@@ -153,8 +158,9 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
                 annotation.title = "Mystery Berry"
                 annotation.subtitle = "One way to find out!"
             }
-            berryMap.addAnnotation(annotation)
-            
+            let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+            berryMap.addAnnotation(pinAnnotationView.annotation!)
+            activePins.append(pinAnnotationView)
         }
     }
     
@@ -209,9 +215,9 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         berryMap.mapType = MKMapType.standard
         berryMap.showsUserLocation = true
         self.fetchAllItems()
-        for i in coordinatesList {
-            print("\(i): \(i.longitude), \(i.latitude)")
-        }
+//        for i in coordinatesList {
+//            print("\(i): \(i.longitude), \(i.latitude)")
+//        }
         
     }
     

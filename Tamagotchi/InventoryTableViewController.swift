@@ -34,7 +34,7 @@ class InventoryTableViewController: UITableViewController {
         do {
             // If inventory does not exist, initialize empty inventory
             let result = try managedObjectContext.fetch(request)
-            let item = result as! [Inventory]
+            var item = result as! [Inventory]
             if item.count == 0 {
                 let playerInv = Inventory(context: managedObjectContext)
                 playerInv.redCount = 0
@@ -47,6 +47,7 @@ class InventoryTableViewController: UITableViewController {
                 do {
                     try managedObjectContext.save()
                 } catch { print("Error") }
+                item = [playerInv]
             }
             // Assign the inventory instance to self
             self.inventoryList = item[0]
