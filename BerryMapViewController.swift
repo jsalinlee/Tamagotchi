@@ -11,6 +11,8 @@ import MapKit
 import CoreLocation
 import CoreData
 import SpriteKit
+import AudioToolbox
+import AVFoundation
 
 class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     @IBOutlet weak var messageLabel: UILabel!
@@ -24,6 +26,8 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
     var coordinatesList = [Coordinates]()
     var inventoryList:Inventory?
     var firstRun = true
+    var berrySound = NSURL(fileURLWithPath: Bundle.main.path(forResource: "Sound/berrysound", ofType:"mp3")!)
+    var audioPlayer = AVAudioPlayer()
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
@@ -136,6 +140,17 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
                 print("Could not delete \(i)")
             }
             coordinatesList.remove(at: i)
+//            if let soundURL = Bundle.main.url(forResource: "berrysound.mp3", withExtension: "mp3") {
+//                var mySound: SystemSoundID = 0
+////                AudioServicesCreateSystemSoundID(soundURL as CFURL, &mySound)
+//                // Play
+//                AudioServicesPlaySystemSound(mySound);
+//            }
+            do {
+                try audioPlayer = AVAudioPlayer(contentsOf: berrySound as URL)
+                audioPlayer.prepareToPlay()
+                audioPlayer.play()
+            } catch {print("Error playing sound!")}
         }
     }
     func fetchAllItems() {
