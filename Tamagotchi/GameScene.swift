@@ -8,6 +8,7 @@
 import UIKit
 import SpriteKit
 import GameplayKit
+import CoreData
 
 class GameScene: SKScene {
     let blob = Blob()
@@ -15,6 +16,8 @@ class GameScene: SKScene {
     let ground = Ground()
     let hud = HUD()
     let cam = SKCameraNode()
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var playerStats:Player?
 
     
     override func didMove(to view: SKView) {
@@ -40,6 +43,33 @@ class GameScene: SKScene {
         print(camera!.position)
         hud.createHudNodes(screenSize: self.size)
         self.camera!.addChild(hud)
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Player")
+        do {
+            let result = try context.fetch(request)
+            let player = result as! [Player]
+            if player.count == 0 {
+                playerStats = Player(context: context)
+                playerStats?.hunger = 50
+                playerStats?.health = 100
+                playerStats?.lastFeed = Date() as NSDate?
+                playerStats?.lastPlay = Date() as NSDate?
+                playerStats?.lastCheck = Date() as NSDate?
+                do {
+                    try context.save()
+                } catch { print("Error") }
+            }
+        } catch {
+            playerStats = Player(context: context)
+            playerStats?.hunger = 50
+            playerStats?.health = 100
+            playerStats?.lastFeed = Date() as NSDate?
+            playerStats?.lastPlay = Date() as NSDate?
+            playerStats?.lastCheck = Date() as NSDate?
+            do {
+                try context.save()
+            } catch { print("Error") }
+        }
     }
    
     enum thePhysics:UInt32 {

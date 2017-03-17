@@ -60,8 +60,8 @@ class InventoryTableViewCell: UITableViewCell {
             if let red = invList?.redCount {
                 if red > 0 {
                     print("Red berries: \(red)")
-                    self.itemLabel!.text = "Red Berry: \(red)"
                     invList?.redCount -= 1
+                    self.itemLabel!.text = "Red Berry: \(invList!.redCount)"
                 }
                 else {
                     print("Not enough red berries")
@@ -71,8 +71,8 @@ class InventoryTableViewCell: UITableViewCell {
             if let blue = invList?.blueCount {
                 if blue > 0 {
                     print("Blue berries \(blue)")
-                    self.itemLabel!.text = "Blue Berry: \(blue)"
                     invList?.blueCount -= 1
+                    self.itemLabel!.text = "Blue Berry: \(invList!.blueCount)"
                 }
                 else {
                     print("Not enough blue berries")
@@ -82,8 +82,8 @@ class InventoryTableViewCell: UITableViewCell {
             if let green = invList?.greenCount {
                 if green > 0 {
                     print("Blue berries \(green)")
-                    self.itemLabel!.text = "Green Berry: \(green)"
                     invList?.greenCount -= 1
+                    self.itemLabel!.text = "Green Berry: \(invList!.greenCount)"
                 }
                 else {
                     print("Not enough green berries")
@@ -93,8 +93,8 @@ class InventoryTableViewCell: UITableViewCell {
             if let yellow = invList?.yellowCount {
                 if yellow > 0 {
                     print("Yellow berries \(yellow)")
-                    self.itemLabel!.text = "Yellow Berry: \(yellow)"
-                    invList?.blueCount -= 1
+                    invList?.yellowCount -= 1
+                    self.itemLabel!.text = "Yellow Berry: \(invList!.yellowCount)"
                 }
                 else {
                     print("Not enough yellow berries")

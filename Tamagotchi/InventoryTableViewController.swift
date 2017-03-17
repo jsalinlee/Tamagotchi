@@ -17,6 +17,7 @@ class InventoryTableViewController: UITableViewController, ActionButtonDelegate 
     var toyCounts = [Int32]()
     let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var inventoryList:Inventory?
+    var playerStats:Player?
     var inventoryCell = InventoryTableViewCell()
     var cellIndex = Int()
     override func viewDidLoad() {
@@ -33,6 +34,32 @@ class InventoryTableViewController: UITableViewController, ActionButtonDelegate 
     
     func fetchAllItems() {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Inventory")
+        let playerRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Player")
+        do {
+            let result = try managedObjectContext.fetch(playerRequest)
+            var player = result as! [Player]
+            if player.count == 0 {
+                playerStats = Player(context: managedObjectContext)
+                playerStats?.hunger = 50
+                playerStats?.health = 100
+                playerStats?.lastFeed = Date() as NSDate?
+                playerStats?.lastPlay = Date() as NSDate?
+                playerStats?.lastCheck = Date() as NSDate?
+                do {
+                    try managedObjectContext.save()
+                } catch { print("Error") }
+            }
+        } catch {
+            playerStats = Player(context: managedObjectContext)
+            playerStats?.hunger = 50
+            playerStats?.health = 100
+            playerStats?.lastFeed = Date() as NSDate?
+            playerStats?.lastPlay = Date() as NSDate?
+            playerStats?.lastCheck = Date() as NSDate?
+            do {
+                try managedObjectContext.save()
+            } catch { print("Error") }
+        }
         do {
             // If inventory does not exist, initialize empty inventory
             let result = try managedObjectContext.fetch(request)

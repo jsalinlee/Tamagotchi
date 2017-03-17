@@ -52,7 +52,7 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         //        print(location.speed)
         //        print(location.coordinate)
         self.berryMap.showsUserLocation = true
-        var deleteTargets = [Int]()
+        var deleteTargets:Int?
         print(activePins.count)
         for i in 0..<activePins.count {
             print(i, activePins[i].annotation?.coordinate.latitude, activePins[i].annotation?.coordinate.longitude)
@@ -63,10 +63,10 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
 //            print("\(coord1.coordinate.latitude), \(coord1.coordinate.longitude)")
             if dist <= 10 {
                 print("\(i) - In range to pick up \(activePins[i].annotation?.title!!)")
-                deleteTargets.append(i)
+                deleteTargets = i
             }
         }
-        for i in deleteTargets {
+        if let i = deleteTargets {
             print("deleting \(i)")
             let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Inventory")
             do {
