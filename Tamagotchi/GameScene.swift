@@ -13,6 +13,7 @@ import CoreData
 class GameScene: SKScene {
     var blobInstance: SKSpriteNode?
     let blob = Blob()
+    let player = Blob()
     var background = SKSpriteNode(imageNamed: "colored_castle")
     let ground = Ground()
     let hud = HUD()
@@ -37,7 +38,7 @@ class GameScene: SKScene {
         ground.createChildren()
         self.addChild(ground)
         
-        let player = Blob()
+//        let player = Blob()
         blobInstance = player
         player.physicsBody?.allowsRotation = false
         self.addChild(player)
@@ -113,13 +114,13 @@ class GameScene: SKScene {
             playerStats?.hunger = 0
         }
         if (playerStats?.hunger)! < 25 {
-            blob.statusText.text = "\(genderString) is starving!"
+            player.statusText.text = "\(genderString) is starving!"
         } else if (playerStats?.hunger)! < 50 {
-            blob.statusText.text = "\(genderString) is very hungry."
+            player.statusText.text = "\(genderString) is very hungry."
         } else if (playerStats?.hunger)! < 70 {
-            blob.statusText.text = "\(genderString) is a little hungry..."
+            player.statusText.text = "\(genderString) is a little hungry..."
         } else {
-            blob.statusText.text = "\(genderString) is feeling fine!"
+            player.statusText.text = "\(genderString) is feeling fine!"
         }
         hud.setHungerDisplay(newHealth: Int((playerStats?.hunger)!))
         playerStats!.lastCheck = NSDate()
@@ -154,20 +155,20 @@ class GameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         hud.setHungerDisplay(newHealth: Int((playerStats?.hunger)!))
         hud.setHappinessDisplay(newHappiness: Int((playerStats?.happiness)!))
-        var genderString:String
+        var genderString = String()
         if (playerStats?.gender)! {
             genderString = "She"
         } else {
             genderString = "He"
         }
         if (playerStats?.hunger)! < 25 {
-            blob.statusText.text = "\(genderString) is starving!"
+            player.statusText.text = "\(genderString) is starving!"
         } else if (playerStats?.hunger)! < 50 {
-            blob.statusText.text = "\(genderString) is very hungry."
+            player.statusText.text = "\(genderString) is very hungry."
         } else if (playerStats?.hunger)! < 70 {
-            blob.statusText.text = "\(genderString) is a little hungry..."
+            player.statusText.text = "\(genderString) is a little hungry..."
         } else {
-            blob.statusText.text = "\(genderString) is feeling fine!"
+            player.statusText.text = "\(genderString) is feeling fine!"
         }
         if touching {
             if touchPoint != blobInstance?.position
