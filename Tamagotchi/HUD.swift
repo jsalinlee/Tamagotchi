@@ -29,6 +29,7 @@ class HUD: SKNode {
         hungerStatus.size = CGSize(width: 30, height: 40)
         hungerStatus.position = CGPoint(x: cameraOrigin.x - 310, y: cameraOrigin.y - 94)
         self.addChild(hungerStatus)
+        
         for index in 0..<100 {
             var backHungerBarNode = SKSpriteNode()
             var hungerBarNode = SKSpriteNode()
@@ -96,6 +97,13 @@ class HUD: SKNode {
                 hungerBar[index].run(fadeAction)
             }
         }
+        if newHealth <= 65 {
+            hungerStatus.texture = SKTexture(imageNamed: "hungerMid")
+        } else if newHealth <= 30 {
+            hungerStatus.texture = SKTexture(imageNamed: "hungerEmpty")
+        } else {
+            hungerStatus.texture = SKTexture(imageNamed: "hungerFull")
+        }
     }
     func setHappinessDisplay(newHappiness: Int) {
         let fadeAction = SKAction.fadeAlpha(to: 0.2, duration: 0.3)
@@ -105,6 +113,15 @@ class HUD: SKNode {
             } else {
                 happinessBar[index].run(fadeAction)
             }
+        }
+        if newHappiness <= 70 {
+            happyStatus.texture = SKTexture(imageNamed: "happyMed")
+        } else if newHappiness <= 40 {
+            happyStatus.texture = SKTexture(imageNamed: "happyLow")
+        } else if newHappiness <= 10 {
+            happyStatus.texture = SKTexture(imageNamed: "happyEmpty")
+        } else {
+            happyStatus.texture = SKTexture(imageNamed: "happyHigh")
         }
     }
 }
