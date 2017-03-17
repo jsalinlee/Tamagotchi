@@ -14,6 +14,7 @@ class GameScene: SKScene {
     var background = SKSpriteNode(imageNamed: "colored_castle")
     let ground = Ground()
     let hud = HUD()
+    let cam = SKCameraNode()
     
     override func didMove(to view: SKView) {
         // adding a boder along edges of screen.
