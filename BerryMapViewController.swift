@@ -11,7 +11,7 @@ import MapKit
 import CoreLocation
 import CoreData
 
-class BerryMapViewController: UIViewController, CLLocationManagerDelegate {
+class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     //Map
     @IBOutlet weak var berryMap: MKMapView!
@@ -44,6 +44,8 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate {
         //        print(location.speed)
         //        print(location.coordinate)
         self.berryMap.showsUserLocation = true
+        
+        
     }
     
     func fetchAllItems() {
@@ -86,8 +88,12 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate {
             num += 1
             
             //Add Annotation
-            let annotation = MKPointAnnotation()
+        
+            
+            let annotation = CustomPointAnnotation()
+            annotation.pinCustomImageName = "redberry"
             annotation.coordinate = generateRandomCoordinates(min: 200, max: 400) //this will be the maximum and minimum distance of the annotation from the current Location (Meters)
+
             let coord = annotation.coordinate
             let coordObject = Coordinates(context: managedObjectContext)
             coordObject.latitude = coord.latitude
@@ -99,10 +105,27 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate {
             } catch {
                 print("Error!")
             }
-            
-            annotation.title = "Annotation Title"
-            annotation.subtitle = "SubTitle"
-            berryMap.addAnnotation(annotation)
+            switch(coordObject.color) {
+            case 0:
+                annotation.title = "Red Berry"
+                annotation.subtitle = "Happiness"
+            case 1:
+                annotation.title = "Green Berry"
+                annotation.subtitle = "Healing"
+            case 2:
+                annotation.title = "Blue Berry"
+                annotation.subtitle = "Nutritious"
+            case 3:
+                annotation.title = "Yellow Berry"
+                annotation.subtitle = "Energizing"
+            default:
+                annotation.title = "Mystery Berry"
+                annotation.subtitle = "One way to find out!"
+            }
+//            mapView(mapView: berryMap, viewForAnnotation: annotation)
+            let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+            berryMap.addAnnotation(pinAnnotationView.annotation!)
+
             
         }
     }
@@ -113,8 +136,23 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate {
             //Add Annotation
             let annotation = MKPointAnnotation()
             annotation.coordinate =  CLLocationCoordinate2DMake(coordinatesList[i].latitude, coordinatesList[i].longitude)
-            annotation.title = "Annotation Title"
-            annotation.subtitle = "SubTitle"
+            switch(coordinatesList[i].color) {
+            case 0:
+                annotation.title = "Red Berry"
+                annotation.subtitle = "Happiness"
+            case 1:
+                annotation.title = "Green Berry"
+                annotation.subtitle = "Healing"
+            case 2:
+                annotation.title = "Blue Berry"
+                annotation.subtitle = "Nutritious"
+            case 3:
+                annotation.title = "Yellow Berry"
+                annotation.subtitle = "Energizing"
+            default:
+                annotation.title = "Mystery Berry"
+                annotation.subtitle = "One way to find out!"
+            }
             berryMap.addAnnotation(annotation)
             
         }
@@ -166,17 +204,48 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate {
         manager.startUpdatingLocation()
         //        manager.stopUpdatingLocation()
         //        print(manager.location)
+
+        berryMap.delegate = self
+        berryMap.mapType = MKMapType.standard
+        berryMap.showsUserLocation = true
         self.fetchAllItems()
         for i in coordinatesList {
             print("\(i): \(i.longitude), \(i.latitude)")
         }
-//        generateAnnoLoc()          <- now handled by fetchAllItems
         
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+
+    // MKMapViewDelegate method
+    // Called when the map view needs to display the annotation.
+    // E.g. If you drag the map so that the annotation goes offscreen, the annotation view will be recycled. When you drag the annotation back on screen this method will be called again to recreate the view for the annotation.
+    //
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        guard !annotation.isKind(of: MKUserLocation.self) else {
+            
+            return nil
+        }
+        
+        let annotationIdentifier = "AnnotationIdentifier"
+        
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier)
+        
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
+            annotationView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            annotationView!.canShowCallout = true
+        }
+        else {
+            annotationView!.annotation = annotation
+        }
+        
+        annotationView!.image = UIImage(named: "redberry")
+        
+        return annotationView
+        
     }
-    
-    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription)
+    }
 }
