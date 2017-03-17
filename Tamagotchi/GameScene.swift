@@ -99,6 +99,10 @@ class GameScene: SKScene {
         } catch { print("Error!") }
         
     }
+    override func update(_ currentTime: TimeInterval) {
+        hud.setHungerDisplay(newHealth: Int((playerStats?.hunger)!))
+        hud.setHappinessDisplay(newHappiness: Int((playerStats?.happiness)!))
+    }
    
     enum thePhysics:UInt32 {
         case blob = 1

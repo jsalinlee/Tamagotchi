@@ -93,6 +93,7 @@ class InventoryTableViewCell: UITableViewCell {
                     print("Red berries: \(red)")
                     invList?.redCount -= 1
                     playerStats?.hunger += 10
+                    playerStats?.happiness += 3
                     self.itemLabel!.text = "Red Berry: \(invList!.redCount)"
                 }
                 else {
@@ -105,6 +106,7 @@ class InventoryTableViewCell: UITableViewCell {
                     print("Blue berries \(blue)")
                     invList?.blueCount -= 1
                     playerStats?.hunger += 10
+                    playerStats?.happiness += 3
                     self.itemLabel!.text = "Blue Berry: \(invList!.blueCount)"
                 }
                 else {
@@ -117,6 +119,7 @@ class InventoryTableViewCell: UITableViewCell {
                     print("Blue berries \(green)")
                     invList?.greenCount -= 1
                     playerStats?.hunger += 10
+                    playerStats?.happiness += 3
                     self.itemLabel!.text = "Green Berry: \(invList!.greenCount)"
                 }
                 else {
@@ -129,6 +132,7 @@ class InventoryTableViewCell: UITableViewCell {
                     print("Yellow berries \(yellow)")
                     invList?.yellowCount -= 1
                     playerStats?.hunger += 10
+                    playerStats?.happiness += 3
                     self.itemLabel!.text = "Yellow Berry: \(invList!.yellowCount)"
                 }
                 else {

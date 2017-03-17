@@ -98,5 +98,15 @@ class HUD: SKNode {
             }
         }
     }
+    func setHappinessDisplay(newHappiness: Int) {
+        let fadeAction = SKAction.fadeAlpha(to: 0.2, duration: 0.3)
+        for index in 0 ..< happinessBar.count {
+            if index < newHappiness {
+                happinessBar[index].alpha = 1
+            } else {
+                happinessBar[index].run(fadeAction)
+            }
+        }
+    }
 }
 
