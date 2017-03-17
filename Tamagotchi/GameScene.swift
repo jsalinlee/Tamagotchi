@@ -126,10 +126,6 @@ class GameScene: SKScene {
         } catch { print("Error!") }
         
     }
-    override func update(_ currentTime: TimeInterval) {
-        hud.setHungerDisplay(newHealth: Int((playerStats?.hunger)!))
-        hud.setHappinessDisplay(newHappiness: Int((playerStats?.happiness)!))
-    }
     
     var touching = false
     
@@ -154,6 +150,8 @@ class GameScene: SKScene {
         touching = false
     }
     override func update(_ currentTime: TimeInterval) {
+        hud.setHungerDisplay(newHealth: Int((playerStats?.hunger)!))
+        hud.setHappinessDisplay(newHappiness: Int((playerStats?.happiness)!))
         if touching {
             if touchPoint != blobInstance?.position
             {
