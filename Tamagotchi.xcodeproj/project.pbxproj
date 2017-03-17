@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B284F7A11E7B6146002D06BE /* BerryMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B284F7A01E7B6146002D06BE /* BerryMapViewController.swift */; };
+		B284F7A41E7B65B9002D06BE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B284F7A31E7B65B9002D06BE /* CoreLocation.framework */; };
 		B2BD39DD1E7B10BF002C051B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BD39DC1E7B10BF002C051B /* AppDelegate.swift */; };
 		B2BD39DF1E7B10BF002C051B /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B2BD39DE1E7B10BF002C051B /* GameScene.sks */; };
 		B2BD39E11E7B10BF002C051B /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = B2BD39E01E7B10BF002C051B /* Actions.sks */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B284F7A01E7B6146002D06BE /* BerryMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BerryMapViewController.swift; path = ../BerryMapViewController.swift; sourceTree = "<group>"; };
+		B284F7A31E7B65B9002D06BE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B2BD39D91E7B10BF002C051B /* Tamagotchi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tamagotchi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2BD39DC1E7B10BF002C051B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2BD39DE1E7B10BF002C051B /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -39,17 +43,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B284F7A41E7B65B9002D06BE /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B284F7A21E7B65B9002D06BE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B284F7A31E7B65B9002D06BE /* CoreLocation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B2BD39D01E7B10BF002C051B = {
 			isa = PBXGroup;
 			children = (
 				B2BD39DB1E7B10BF002C051B /* Tamagotchi */,
 				B2BD39DA1E7B10BF002C051B /* Products */,
+				B284F7A21E7B65B9002D06BE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +78,7 @@
 		B2BD39DB1E7B10BF002C051B /* Tamagotchi */ = {
 			isa = PBXGroup;
 			children = (
+				B284F7A01E7B6146002D06BE /* BerryMapViewController.swift */,
 				B2BD39DC1E7B10BF002C051B /* AppDelegate.swift */,
 				B2BD39F41E7B1ED8002C051B /* Blob.swift */,
 				B2BD39DE1E7B10BF002C051B /* GameScene.sks */,
@@ -111,7 +126,7 @@
 				TargetAttributes = {
 					B2BD39D81E7B10BF002C051B = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = K7HCY2VAD5;
+						DevelopmentTeam = E656B54U75;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -156,6 +171,7 @@
 			files = (
 				B2BD39F51E7B1ED8002C051B /* Blob.swift in Sources */,
 				B2BD39F71E7B31D0002C051B /* InventoryTableViewController.swift in Sources */,
+				B284F7A11E7B6146002D06BE /* BerryMapViewController.swift in Sources */,
 				B2BD39E31E7B10BF002C051B /* GameScene.swift in Sources */,
 				B2BD39E51E7B10BF002C051B /* GameViewController.swift in Sources */,
 				B2BD39DD1E7B10BF002C051B /* AppDelegate.swift in Sources */,
@@ -281,10 +297,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = K7HCY2VAD5;
+				DEVELOPMENT_TEAM = E656B54U75;
 				INFOPLIST_FILE = Tamagotchi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.SalinStudios.Tamagotchi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JustinChang.Tamagotchi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -294,10 +310,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = K7HCY2VAD5;
+				DEVELOPMENT_TEAM = E656B54U75;
 				INFOPLIST_FILE = Tamagotchi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.SalinStudios.Tamagotchi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JustinChang.Tamagotchi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -322,6 +338,7 @@
 				B2BD39F31E7B10BF002C051B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
