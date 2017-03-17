@@ -89,7 +89,7 @@ class HUD: SKNode {
         }
     }
     func setHungerDisplay(newHealth: Int) {
-        let fadeAction = SKAction.fadeAlpha(to: 0.2, duration: 0.3)
+        let fadeAction = SKAction.fadeAlpha(to: 0.0, duration: 0.3)
         for index in 0 ..< hungerBar.count {
             if index < newHealth {
                 hungerBar[index].alpha = 1
@@ -106,7 +106,7 @@ class HUD: SKNode {
         }
     }
     func setHappinessDisplay(newHappiness: Int) {
-        let fadeAction = SKAction.fadeAlpha(to: 0.2, duration: 0.3)
+        let fadeAction = SKAction.fadeAlpha(to: 0.0, duration: 0.3)
         for index in 0 ..< happinessBar.count {
             if index < newHappiness {
                 happinessBar[index].alpha = 1
