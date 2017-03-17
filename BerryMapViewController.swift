@@ -221,7 +221,7 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
     // E.g. If you drag the map so that the annotation goes offscreen, the annotation view will be recycled. When you drag the annotation back on screen this method will be called again to recreate the view for the annotation.
     //
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
+        let color = annotation.title
         guard !annotation.isKind(of: MKUserLocation.self) else {
             
             return nil
@@ -239,8 +239,19 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         else {
             annotationView!.annotation = annotation
         }
-        
-        annotationView!.image = UIImage(named: "redberry")
+        switch(color!!) {
+        case "Red Berry":
+            annotationView!.image = UIImage(named: "redberry")
+        case "Blue Berry":
+            annotationView!.image = UIImage(named: "blueberry")
+        case "Green Berry":
+            annotationView!.image = UIImage(named: "greenberry")
+        case "Yellow Berry":
+            annotationView!.image = UIImage(named: "yellowberry")
+        default:
+            print("Couldn't find image for \(color!!)")
+            annotationView!.image = UIImage(named: "redberry")
+        }
         
         return annotationView
         
