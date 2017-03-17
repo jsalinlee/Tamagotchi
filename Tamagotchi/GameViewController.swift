@@ -30,8 +30,8 @@ class GameViewController: UIViewController{
                 view.presentScene(scene)
             }
             view.ignoresSiblingOrder = true
-            view.showsFPS = true
-            view.showsNodeCount = true
+            view.showsFPS = false
+            view.showsNodeCount = false
         }
         if let musicPath = Bundle.main.path(forResource:"Sound/bgmusic.mp3", ofType: nil) {
             let url = URL(fileURLWithPath: musicPath)

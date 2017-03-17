@@ -8,6 +8,7 @@
 import UIKit
 import SpriteKit
 import GameplayKit
+import CoreData
 
 class GameScene: SKScene {
     var blobInstance: SKSpriteNode?
@@ -17,6 +18,8 @@ class GameScene: SKScene {
     let hud = HUD()
     let cam = SKCameraNode()
     var touchPoint = CGPoint()
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var playerStats:Player?
     
     override func didMove(to view: SKView) {
         // adding a border along edges of screen.
@@ -45,6 +48,87 @@ class GameScene: SKScene {
         print(camera!.position)
         hud.createHudNodes(screenSize: self.size)
         self.camera!.addChild(hud)
+        
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Player")
+        do {
+            let result = try context.fetch(request)
+            let player = result as! [Player]
+            if player.count == 0 {
+                playerStats = Player(context: context)
+                playerStats?.hunger = 50
+                playerStats?.health = 100
+                playerStats?.lastFeed = Date() as NSDate?
+                playerStats?.lastPlay = Date() as NSDate?
+                playerStats?.lastCheck = Date() as NSDate?
+                let gend = arc4random_uniform(2)
+                if gend == 1 {
+                    playerStats?.gender = true
+                }
+                else {
+                    playerStats?.gender = false
+                }
+
+                do {
+                    try context.save()
+                } catch { print("Error") }
+            }
+            else {
+                playerStats = player[0]
+            }
+        } catch {
+            playerStats = Player(context: context)
+            playerStats?.hunger = 50
+            playerStats?.health = 100
+            playerStats?.lastFeed = Date() as NSDate?
+            playerStats?.lastPlay = Date() as NSDate?
+            playerStats?.lastCheck = Date() as NSDate?
+            let gend = arc4random_uniform(2)
+            if gend == 1 {
+                playerStats?.gender = true
+            }
+            else {
+                playerStats?.gender = false
+            }
+
+            do {
+                try context.save()
+            } catch { print("Error") }
+        }
+        hud.setHungerDisplay(newHealth: Int((playerStats?.hunger)!))
+
+        let elapsed = Date().timeIntervalSince(playerStats!.lastCheck! as Date)
+        print("\(elapsed/60) minutes")
+        playerStats?.hunger -= Int(elapsed/60)
+        var genderString:String
+        if (playerStats?.gender)! {
+            genderString = "She"
+        } else {
+            genderString = "He"
+        }
+        if (playerStats?.hunger)! > 100 {
+            playerStats?.hunger = 100
+        }
+        if (playerStats?.hunger)! < 0 {
+            playerStats?.hunger = 0
+            blob.statusText.text = "\(genderString) is starving!"
+        } else if (playerStats?.hunger)! < 50 {
+            blob.statusText.text = "\(genderString) is very hungry."
+        } else if (playerStats?.hunger)! < 70 {
+            blob.statusText.text = "\(genderString) is a little hungry..."
+        } else {
+            blob.statusText.text = "\(genderString) is feeling fine!"
+        }
+        hud.setHungerDisplay(newHealth: Int((playerStats?.hunger)!))
+        playerStats!.lastCheck = NSDate()
+        do {
+            try context.save()
+        } catch { print("Error!") }
+        
+    }
+    override func update(_ currentTime: TimeInterval) {
+        hud.setHungerDisplay(newHealth: Int((playerStats?.hunger)!))
+        hud.setHappinessDisplay(newHappiness: Int((playerStats?.happiness)!))
     }
     
     var touching = false

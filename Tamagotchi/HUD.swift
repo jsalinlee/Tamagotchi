@@ -26,9 +26,8 @@ class HUD: SKNode {
         print(cameraOrigin)
         
         hungerStatus = SKSpriteNode(texture: textureAtlas.textureNamed("hungerFull"))
-        hungerStatus.size = CGSize(width: 30, height: 30)
-        hungerStatus.position = CGPoint(x: cameraOrigin.x - 310, y: cameraOrigin.y - 89)
-
+        hungerStatus.size = CGSize(width: 30, height: 40)
+        hungerStatus.position = CGPoint(x: cameraOrigin.x - 310, y: cameraOrigin.y - 94)
         self.addChild(hungerStatus)
         for index in 0..<100 {
             var backHungerBarNode = SKSpriteNode()
@@ -86,6 +85,26 @@ class HUD: SKNode {
             happinessBar.append(happinessBarNode)
             self.addChild(backHappyBarNode)
             self.addChild(happinessBarNode)
+        }
+    }
+    func setHungerDisplay(newHealth: Int) {
+        let fadeAction = SKAction.fadeAlpha(to: 0.2, duration: 0.3)
+        for index in 0 ..< hungerBar.count {
+            if index < newHealth {
+                hungerBar[index].alpha = 1
+            } else {
+                hungerBar[index].run(fadeAction)
+            }
+        }
+    }
+    func setHappinessDisplay(newHappiness: Int) {
+        let fadeAction = SKAction.fadeAlpha(to: 0.2, duration: 0.3)
+        for index in 0 ..< happinessBar.count {
+            if index < newHappiness {
+                happinessBar[index].alpha = 1
+            } else {
+                happinessBar[index].run(fadeAction)
+            }
         }
     }
 }
