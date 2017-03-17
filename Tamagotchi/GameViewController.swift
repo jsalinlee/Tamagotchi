@@ -11,8 +11,11 @@ import SpriteKit
 import GameplayKit
 import CoreLocation
 import MapKit
+import AVFoundation
 
 class GameViewController: UIViewController {
+    
+    var musicPlayer = AVAudioPlayer()
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -29,6 +32,17 @@ class GameViewController: UIViewController {
             view.ignoresSiblingOrder = true
             view.showsFPS = true
             view.showsNodeCount = true
+        }
+        if let musicPath = Bundle.main.path(forResource:"Sound/bgmusic.mp3", ofType: nil) {
+            let url = URL(fileURLWithPath: musicPath)
+            do {
+                musicPlayer = try AVAudioPlayer(contentsOf: url)
+                musicPlayer.numberOfLoops = -1
+                musicPlayer.prepareToPlay()
+                musicPlayer.play()
+                
+            }
+            catch { /* Couldn't load music file */}
         }
     }
     
