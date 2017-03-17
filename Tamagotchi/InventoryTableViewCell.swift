@@ -58,18 +58,54 @@ class InventoryTableViewCell: UITableViewCell {
         switch(str!.substring(to: end)) {
         case "R":
             if let red = invList?.redCount {
-                print("Red berries \(red)")
-                invList?.redCount -= 1
+                if red > 0 {
+                    print("Red berries: \(red)")
+                    self.itemLabel!.text = "Red Berry: \(red)"
+                    invList?.redCount -= 1
+                }
+                else {
+                    print("Not enough red berries")
+                }
             }
         case "B":
-            print("Blue berry button pressed!")
+            if let blue = invList?.blueCount {
+                if blue > 0 {
+                    print("Blue berries \(blue)")
+                    self.itemLabel!.text = "Blue Berry: \(blue)"
+                    invList?.blueCount -= 1
+                }
+                else {
+                    print("Not enough blue berries")
+                }
+            }
         case "G":
-            print("Green berry button pressed!")
+            if let green = invList?.greenCount {
+                if green > 0 {
+                    print("Blue berries \(green)")
+                    self.itemLabel!.text = "Green Berry: \(green)"
+                    invList?.greenCount -= 1
+                }
+                else {
+                    print("Not enough green berries")
+                }
+            }
         case "Y":
-            print("Yellow berry button pressed!")
+            if let yellow = invList?.yellowCount {
+                if yellow > 0 {
+                    print("Yellow berries \(yellow)")
+                    self.itemLabel!.text = "Yellow Berry: \(yellow)"
+                    invList?.blueCount -= 1
+                }
+                else {
+                    print("Not enough yellow berries")
+                }
+            }
         default:
             print("Unknown")
         }
+        do {
+            try managedObjectContext.save()
+        } catch { print("Error") }
     }
     override func awakeFromNib() {
         super.awakeFromNib()
