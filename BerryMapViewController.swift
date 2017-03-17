@@ -12,6 +12,7 @@ import CoreLocation
 import CoreData
 
 class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+    @IBOutlet weak var messageLabel: UILabel!
     
     //Map
     @IBOutlet weak var berryMap: MKMapView!
@@ -20,6 +21,7 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
     let manager = CLLocationManager()
     let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var coordinatesList = [Coordinates]()
+    var inventoryList:Inventory?
     var firstRun = true
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
@@ -45,15 +47,94 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         //        print(location.speed)
         //        print(location.coordinate)
         self.berryMap.showsUserLocation = true
-        for pin in activePins {
-            let coord1 = CLLocation(latitude: (pin.annotation?.coordinate.latitude)!, longitude: (pin.annotation?.coordinate.longitude)!)
+        var deleteTargets = [Int]()
+        print(activePins.count)
+        for i in 0..<activePins.count {
+            print(i, activePins[i].annotation?.coordinate.latitude, activePins[i].annotation?.coordinate.longitude)
+            let coord1 = CLLocation(latitude: (activePins[i].annotation?.coordinate.latitude)!, longitude: (activePins[i].annotation?.coordinate.longitude)!)
             let coord2 = CLLocation(latitude: myLocation.latitude, longitude: myLocation.longitude)
             let dist = coord1.distance(from: coord2)
-            print("\(coord1.coordinate.latitude), \(coord1.coordinate.longitude)")
+            print(i, dist)
+//            print("\(coord1.coordinate.latitude), \(coord1.coordinate.longitude)")
             if dist <= 10 {
-                print("In range to pick up \(pin.annotation?.title!!)")
+                print("\(i) - In range to pick up \(activePins[i].annotation?.title!!)")
+                deleteTargets.append(i)
             }
-            
+        }
+        for i in deleteTargets {
+            print("deleting \(i)")
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Inventory")
+            do {
+                // If inventory does not exist, initialize empty inventory
+                let result = try managedObjectContext.fetch(request)
+                var item = result as! [Inventory]
+                if item.count == 0 {
+                    let playerInv = Inventory(context: managedObjectContext)
+                    playerInv.redCount = 0
+                    playerInv.blueCount = 0
+                    playerInv.greenCount = 0
+                    playerInv.yellowCount = 0
+                    playerInv.gojira = 0
+                    playerInv.kendama = 0
+                    playerInv.rubberBall = 0
+                    do {
+                        try managedObjectContext.save()
+                    } catch { print("Error") }
+                    item = [playerInv]
+                }
+                // Assign the inventory instance to self
+                self.inventoryList = item[0]
+            } catch {
+                let playerInv = Inventory(context: managedObjectContext)
+                playerInv.redCount = 3
+                playerInv.blueCount = 3
+                playerInv.greenCount = 3
+                playerInv.yellowCount = 3
+                playerInv.gojira = 3
+                playerInv.kendama = 3
+                playerInv.rubberBall = 3
+                do {
+                    try managedObjectContext.save()
+                } catch { print("Error") }
+            }
+            let title = activePins[i].annotation?.title
+            switch(title!!) {
+            case "Red Berry":
+                inventoryList?.redCount += 1
+                messageLabel.text = "You picked up a red berry!"
+                messageLabel.alpha = 1.0
+                UIView.animate(withDuration: 3.0, animations: {self.messageLabel.alpha = 0.0})
+            case "Blue Berry":
+                inventoryList?.blueCount += 1
+                messageLabel.text = "You picked up a blue berry!"
+                messageLabel.alpha = 1.0
+                UIView.animate(withDuration: 3.0, animations: {self.messageLabel.alpha = 0.0})
+            case "Green Berry":
+                messageLabel.text = "You picked up a green berry!"
+                messageLabel.alpha = 1.0
+                UIView.animate(withDuration: 3.0, animations: {self.messageLabel.alpha = 0.0})
+                inventoryList?.greenCount += 1
+            case "Yellow Berry":
+                messageLabel.text = "You picked up a yellow berry!"
+                messageLabel.alpha = 1.0
+                UIView.animate(withDuration: 3.0, animations: {self.messageLabel.alpha = 0.0})
+                inventoryList?.yellowCount += 1
+            default:
+                break;
+            }
+            do {
+                try managedObjectContext.save()
+            } catch { print("Error") }
+            berryMap.removeAnnotation(activePins[i].annotation!)
+            activePins[i].removeFromSuperview()
+            activePins.remove(at: i)
+            managedObjectContext.delete(coordinatesList[i])
+            do {
+                try managedObjectContext.save()
+            } catch {
+                print("Could not delete \(i)")
+            }
+            coordinatesList.remove(at: i)
         }
     }
     
@@ -81,18 +162,12 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
             do {
                 try managedObjectContext.save()
             } catch { print("Error") }
-
         }
-        
     }
     
     func generateAnnoLoc() {
-        
-        var num = 0
         //First we declare While to repeat adding Annotation
-        while num != 10 {
-            num += 1
-            
+        for _ in 0..<10 {
             //Add Annotation
         
             
@@ -135,9 +210,8 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         }
     }
     func existingAnnoLoc() {
-        
         //First we declare While to repeat adding Annotation
-        for i in 0..<10 {
+        for i in 0..<coordinatesList.count {
             //Add Annotation
             let annotation = MKPointAnnotation()
             annotation.coordinate =  CLLocationCoordinate2DMake(coordinatesList[i].latitude, coordinatesList[i].longitude)
@@ -197,7 +271,6 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         }else {
             return CLLocationCoordinate2D(latitude: currentLat! - metersCordN, longitude: currentLong!)
         }
-        
     }
     
     override func viewDidLoad()
@@ -218,7 +291,6 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
 //        for i in coordinatesList {
 //            print("\(i): \(i.longitude), \(i.latitude)")
 //        }
-        
     }
     
 
@@ -229,10 +301,8 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let color = annotation.title
         guard !annotation.isKind(of: MKUserLocation.self) else {
-            
             return nil
         }
-        
         let annotationIdentifier = "AnnotationIdentifier"
         
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier)
@@ -258,10 +328,9 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
             print("Couldn't find image for \(color!!)")
             annotationView!.image = UIImage(named: "redberry")
         }
-        
         return annotationView
-        
     }
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
     }

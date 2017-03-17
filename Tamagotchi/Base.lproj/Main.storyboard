@@ -91,7 +91,7 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="OVJ-0V-C24">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </mapView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jce-cn-96V">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jce-cn-96V">
                                 <rect key="frame" x="50" y="514" width="275" height="130"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="275" id="7jR-IQ-nyi"/>
@@ -114,6 +114,7 @@
                     </view>
                     <connections>
                         <outlet property="berryMap" destination="OVJ-0V-C24" id="vLV-q7-Gpa"/>
+                        <outlet property="messageLabel" destination="Jce-cn-96V" id="1W8-pg-kcq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wMM-L9-uUu" userLabel="First Responder" sceneMemberID="firstResponder"/>
