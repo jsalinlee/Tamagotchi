@@ -24,12 +24,14 @@ class Blob:SKSpriteNode {
         self.physicsBody = SKPhysicsBody(texture: texture, size: initialSize)
         self.position = CGPoint(x:0, y: 0)
         self.gender = determineGender()
+
         createAnimation()
         self.run(sitAnimation)
         statusText.text = self.gender[0] + " looks a little hungry..."
         statusText.fontColor = UIColor.black
         statusText.fontName="Avenir"
         statusText.position = CGPoint(x: self.position.x, y: self.position.y + 200)
+
         addChild(statusText)
     }
     func createAnimation() {

@@ -15,9 +15,10 @@ class GameScene: SKScene {
     let ground = Ground()
     let hud = HUD()
     let cam = SKCameraNode()
+
     
     override func didMove(to view: SKView) {
-        // adding a boder along edges of screen.
+        // adding a border along edges of screen.
         let borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
         background.position = CGPoint(x: 0, y: 0)
         background.zPosition = -5
@@ -39,7 +40,6 @@ class GameScene: SKScene {
         print(camera!.position)
         hud.createHudNodes(screenSize: self.size)
         self.camera!.addChild(hud)
-        
     }
    
     enum thePhysics:UInt32 {

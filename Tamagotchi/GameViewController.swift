@@ -13,7 +13,7 @@ import CoreLocation
 import MapKit
 import AVFoundation
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController{
     
     var musicPlayer = AVAudioPlayer()
     
@@ -45,7 +45,7 @@ class GameViewController: UIViewController {
             catch { /* Couldn't load music file */}
         }
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.

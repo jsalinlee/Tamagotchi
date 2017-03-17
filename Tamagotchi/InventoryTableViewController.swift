@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class InventoryTableViewController: UITableViewController {
+class InventoryTableViewController: UITableViewController, ActionButtonDelegate {
     var itemSections = ["Food", "Toys"]
     var food = ["Red Berry", "Blue Berry", "Green Berry", "Yellow Berry"]
     var foodCounts = [Int32]()
@@ -17,10 +17,12 @@ class InventoryTableViewController: UITableViewController {
     var toyCounts = [Int32]()
     let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var inventoryList:Inventory?
-
+    var inventoryCell = InventoryTableViewCell()
+    var cellIndex = Int()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.fetchAllItems()
+        tableView.dataSource = self
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -82,19 +84,32 @@ class InventoryTableViewController: UITableViewController {
         }
         return 0
     }
-
+    
+    func actionDelegateButtonPressed() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "InventoryCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "InventoryCell", for: indexPath) as! InventoryTableViewCell
         if indexPath.section == 0 {
-            cell.textLabel?.text = "\(food[indexPath.row]): \(foodCounts[indexPath.row])"
+            cell.itemLabel.text = "\(food[indexPath.row]): \(foodCounts[indexPath.row])"
+            cell.actionButtonLabel.setTitle("Feed", for: .normal)
         } else if indexPath.section == 1 {
-            cell.textLabel?.text = "\(toys[indexPath.row]): \(toyCounts[indexPath.row])"
+            cell.itemLabel.text = "\(toys[indexPath.row]): \(toyCounts[indexPath.row])"
+            cell.actionButtonLabel.setTitle("Play", for: .normal)
         }
+        cell.tag = indexPath.row
+        print(cell.tag)
+        cell.cellDelegate = self
         return cell
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return itemSections[section]
+    }
+    
+    @IBAction func actionButtonPressed(_ sender: UIButton) {
+        print(cellIndex)
     }
     
     override func didReceiveMemoryWarning() {
