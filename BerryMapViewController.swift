@@ -172,16 +172,48 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
             
             
             let annotation = CustomPointAnnotation()
-            annotation.pinCustomImageName = "redberry"
+            
             annotation.coordinate = generateRandomCoordinates(min: 200, max: 400) //this will be the maximum and minimum distance of the annotation from the current Location (Meters)
-            annotation.title = "Red Berry"
-            annotation.subtitle = "Happiness"
+            
+            let coord = annotation.coordinate
+            let coordObject = Coordinates(context: managedObjectContext)
+            coordObject.latitude = coord.latitude
+            coordObject.longitude = coord.longitude
+            coordObject.color = Int16(arc4random_uniform(4))
+            coordinatesList.append(coordObject)
+            do {
+                try managedObjectContext.save()
+            } catch {
+                print("Error!")
+            }
+            switch(coordObject.color) {
+            case 0:
+                annotation.title = "Red Berry"
+                annotation.subtitle = "Happiness"
+                annotation.pinCustomImageName = "redberry"
+            case 1:
+                annotation.title = "Green Berry"
+                annotation.subtitle = "Healing"
+                annotation.pinCustomImageName = "greenberry"
+            case 2:
+                annotation.title = "Blue Berry"
+                annotation.subtitle = "Nutritious"
+                annotation.pinCustomImageName = "blueberry"
+            case 3:
+                annotation.title = "Yellow Berry"
+                annotation.subtitle = "Energizing"
+                annotation.pinCustomImageName = "yellowberry"
+            default:
+                annotation.title = "Mystery Berry"
+                annotation.subtitle = "One way to find out!"
+            }
             //            mapView(mapView: berryMap, viewForAnnotation: annotation)
             let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "pin")
             berryMap.addAnnotation(pinAnnotationView.annotation!)
             activePins.append(pinAnnotationView)
         }
     }
+    
     func existingAnnoLoc() {
         //First we declare While to repeat adding Annotation
         for i in 0..<coordinatesList.count {
