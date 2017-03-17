@@ -15,7 +15,9 @@ class InventoryTableViewCell: UITableViewCell {
     
     @IBAction func actionButtonPressed(_ sender: UIButton) {
         self.cellDelegate?.actionDelegateButtonPressed()
-        print("Action button pressed")
+        let str = self.itemLabel!.text
+        let end = str!.index(str!.startIndex, offsetBy: 1)
+        print("Action button pressed - \(str!.substring(to: end))")
     }
     override func awakeFromNib() {
         super.awakeFromNib()
