@@ -44,6 +44,7 @@ class GameScene: SKScene {
         hud.createHudNodes(screenSize: self.size)
         self.camera!.addChild(hud)
         
+        
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Player")
         do {
             let result = try context.fetch(request)
@@ -59,6 +60,9 @@ class GameScene: SKScene {
                     try context.save()
                 } catch { print("Error") }
             }
+            else {
+                playerStats = player[0]
+            }
         } catch {
             playerStats = Player(context: context)
             playerStats?.hunger = 50
@@ -70,6 +74,30 @@ class GameScene: SKScene {
                 try context.save()
             } catch { print("Error") }
         }
+        hud.setHungerDisplay(newHealth: Int((playerStats?.hunger)!))
+
+        let elapsed = Date().timeIntervalSince(playerStats!.lastCheck! as Date)
+        print("\(elapsed/60) minutes")
+        playerStats?.hunger -= Int(elapsed/360)
+        if (playerStats?.hunger)! > 100 {
+            playerStats?.hunger = 100
+        }
+        if (playerStats?.hunger)! < 0 {
+            playerStats?.hunger = 0
+            blob.statusText.text = "\(blob.gender[0]) is starving!"
+        } else if (playerStats?.hunger)! < 50 {
+            blob.statusText.text = "\(blob.gender[0]) is very hungry."
+        } else if (playerStats?.hunger)! < 70 {
+            blob.statusText.text = "\(blob.gender[0]) is a little hungry..."
+        } else {
+            blob.statusText.text = "\(blob.gender[0]) is feeling fine!"
+        }
+        hud.setHungerDisplay(newHealth: Int((playerStats?.hunger)!))
+        playerStats!.lastCheck = NSDate()
+        do {
+            try context.save()
+        } catch { print("Error!") }
+        
     }
    
     enum thePhysics:UInt32 {

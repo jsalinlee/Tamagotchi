@@ -13,12 +13,43 @@ class InventoryTableViewCell: UITableViewCell {
     var cellDelegate: ActionButtonDelegate?
     let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var invList:Inventory?
+    var playerStats:Player?
     
     @IBOutlet weak var itemLabel: UILabel!
     @IBOutlet weak var actionButtonLabel: UIButton!
     
     @IBAction func actionButtonPressed(_ sender: UIButton) {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Inventory")
+        let playerRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Player")
+        do {
+            let result = try managedObjectContext.fetch(playerRequest)
+            let player = result as! [Player]
+            if player.count == 0 {
+                playerStats = Player(context: managedObjectContext)
+                playerStats?.hunger = 50
+                playerStats?.health = 100
+                playerStats?.lastFeed = Date() as NSDate?
+                playerStats?.lastPlay = Date() as NSDate?
+                playerStats?.lastCheck = Date() as NSDate?
+                do {
+                    try managedObjectContext.save()
+                } catch { print("Error") }
+            }
+            else {
+                playerStats = player[0]
+            }
+        } catch {
+            playerStats = Player(context: managedObjectContext)
+            playerStats?.hunger = 50
+            playerStats?.health = 100
+            playerStats?.lastFeed = Date() as NSDate?
+            playerStats?.lastPlay = Date() as NSDate?
+            playerStats?.lastCheck = Date() as NSDate?
+            do {
+                try managedObjectContext.save()
+            } catch { print("Error") }
+        }
+
         do {
             let result = try managedObjectContext.fetch(request)
             var item = result as! [Inventory]
@@ -61,6 +92,7 @@ class InventoryTableViewCell: UITableViewCell {
                 if red > 0 {
                     print("Red berries: \(red)")
                     invList?.redCount -= 1
+                    playerStats?.hunger += 10
                     self.itemLabel!.text = "Red Berry: \(invList!.redCount)"
                 }
                 else {
@@ -72,6 +104,7 @@ class InventoryTableViewCell: UITableViewCell {
                 if blue > 0 {
                     print("Blue berries \(blue)")
                     invList?.blueCount -= 1
+                    playerStats?.hunger += 10
                     self.itemLabel!.text = "Blue Berry: \(invList!.blueCount)"
                 }
                 else {
@@ -83,6 +116,7 @@ class InventoryTableViewCell: UITableViewCell {
                 if green > 0 {
                     print("Blue berries \(green)")
                     invList?.greenCount -= 1
+                    playerStats?.hunger += 10
                     self.itemLabel!.text = "Green Berry: \(invList!.greenCount)"
                 }
                 else {
@@ -94,6 +128,7 @@ class InventoryTableViewCell: UITableViewCell {
                 if yellow > 0 {
                     print("Yellow berries \(yellow)")
                     invList?.yellowCount -= 1
+                    playerStats?.hunger += 10
                     self.itemLabel!.text = "Yellow Berry: \(invList!.yellowCount)"
                 }
                 else {

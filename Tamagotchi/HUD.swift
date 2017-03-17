@@ -88,5 +88,15 @@ class HUD: SKNode {
             self.addChild(happinessBarNode)
         }
     }
+    func setHungerDisplay(newHealth: Int) {
+        let fadeAction = SKAction.fadeAlpha(to: 0.2, duration: 0.3)
+        for index in 0 ..< hungerBar.count {
+            if index < newHealth {
+                hungerBar[index].alpha = 1
+            } else {
+                hungerBar[index].run(fadeAction)
+            }
+        }
+    }
 }
 
