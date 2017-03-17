@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class BerryMapViewController: UIViewController, CLLocationManagerDelegate {
+class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     //Map
     @IBOutlet weak var berryMap: MKMapView!
@@ -41,6 +41,8 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate {
         //        print(location.speed)
         //        print(location.coordinate)
         self.berryMap.showsUserLocation = true
+        
+        
     }
     func generateAnnoLoc() {
         
@@ -50,11 +52,16 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate {
             num += 1
             
             //Add Annotation
-            let annotation = MKPointAnnotation()
+        
+            
+            let annotation = CustomPointAnnotation()
+            annotation.pinCustomImageName = "redberry"
             annotation.coordinate = generateRandomCoordinates(min: 200, max: 400) //this will be the maximum and minimum distance of the annotation from the current Location (Meters)
-            annotation.title = "Annotation Title"
-            annotation.subtitle = "SubTitle"
-            berryMap.addAnnotation(annotation)
+            annotation.title = "Red Berry"
+            annotation.subtitle = "Happiness"
+//            mapView(mapView: berryMap, viewForAnnotation: annotation)
+            let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+            berryMap.addAnnotation(pinAnnotationView.annotation!)
             
         }
         
@@ -104,13 +111,44 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate {
         manager.startUpdatingLocation()
         //        manager.stopUpdatingLocation()
         //        print(manager.location)
+        berryMap.delegate = self
+        berryMap.mapType = MKMapType.standard
+        berryMap.showsUserLocation = true
         generateAnnoLoc()
         
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+
+    // MKMapViewDelegate method
+    // Called when the map view needs to display the annotation.
+    // E.g. If you drag the map so that the annotation goes offscreen, the annotation view will be recycled. When you drag the annotation back on screen this method will be called again to recreate the view for the annotation.
+    //
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        guard !annotation.isKind(of: MKUserLocation.self) else {
+            
+            return nil
+        }
+        
+        let annotationIdentifier = "AnnotationIdentifier"
+        
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier)
+        
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
+            annotationView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            annotationView!.canShowCallout = true
+        }
+        else {
+            annotationView!.annotation = annotation
+        }
+        
+        annotationView!.image = UIImage(named: "redberry")
+        
+        return annotationView
+        
     }
-    
-    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription)
+    }
 }
