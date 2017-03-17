@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1BFC854B1E7B742A0098A295 /* SaveGame.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1BFC85491E7B742A0098A295 /* SaveGame.xcdatamodeld */; };
+		B213D8991E7B9A5D0016901B /* InventoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B213D8981E7B9A5D0016901B /* InventoryTableViewCell.swift */; };
 		B284F7A11E7B6146002D06BE /* BerryMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B284F7A01E7B6146002D06BE /* BerryMapViewController.swift */; };
 		B284F7A41E7B65B9002D06BE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B284F7A31E7B65B9002D06BE /* CoreLocation.framework */; };
 		B2BD39DD1E7B10BF002C051B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BD39DC1E7B10BF002C051B /* AppDelegate.swift */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		1BFC854A1E7B742A0098A295 /* SaveGame.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SaveGame.xcdatamodel; sourceTree = "<group>"; };
+		B213D8981E7B9A5D0016901B /* InventoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InventoryTableViewCell.swift; sourceTree = "<group>"; };
 		B284F7A01E7B6146002D06BE /* BerryMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BerryMapViewController.swift; path = ../BerryMapViewController.swift; sourceTree = "<group>"; };
 		B284F7A31E7B65B9002D06BE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B2BD39D91E7B10BF002C051B /* Tamagotchi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tamagotchi.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,6 +87,7 @@
 				B284F7A01E7B6146002D06BE /* BerryMapViewController.swift */,
 				B2BD39DC1E7B10BF002C051B /* AppDelegate.swift */,
 				B2BD39F41E7B1ED8002C051B /* Blob.swift */,
+				B213D8981E7B9A5D0016901B /* InventoryTableViewCell.swift */,
 				B2BD39DE1E7B10BF002C051B /* GameScene.sks */,
 				B2BD39F61E7B31D0002C051B /* InventoryTableViewController.swift */,
 				1BFC85491E7B742A0098A295 /* SaveGame.xcdatamodeld */,
@@ -176,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5CBD7791E7B793C0099BE54 /* CustomPointAnnotation.swift in Sources */,
+				B213D8991E7B9A5D0016901B /* InventoryTableViewCell.swift in Sources */,
 				B2BD39F51E7B1ED8002C051B /* Blob.swift in Sources */,
 				B2BD39F71E7B31D0002C051B /* InventoryTableViewController.swift in Sources */,
 				B284F7A11E7B6146002D06BE /* BerryMapViewController.swift in Sources */,
