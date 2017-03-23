@@ -28,16 +28,29 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
     var firstRun = true
     var berrySound = NSURL(fileURLWithPath: Bundle.main.path(forResource: "Sound/berrysound", ofType:"mp3")!)
     var audioPlayer = AVAudioPlayer()
-    
+    var berriesLocation = [[Double]]()
     func getBatchLocations() {
         let url = URL(string: "http://localhost:8000/api/berrylist")
         let session = URLSession.shared
         let task = session.dataTask(with: url!, completionHandler: {
-            data, response, error in
-            
+            (data, response, error) in
             do {
-                if let jsonResult = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSArray {
-                    print(jsonResult)
+                print("There")
+                if let data = data {
+                    print("Here")
+                    if let jsonResult = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSArray {
+                        for berryIndex in jsonResult {
+                            if let berry = berryIndex as? NSDictionary {
+                                let berryLocation: [Double] = [Double(String(describing: berry["latitude"]!))!, Double(String(describing: berry["longitude"]!))!]
+                                print(berryLocation)
+    //                            let berryLocation: [Double] = [Double(berry["latitude"]!), Double(berry["longitude"]!)]
+                                self.berriesLocation.append(berryLocation)
+                                print(self.berriesLocation)
+                                
+    //                            print(berryLocation)
+                            }
+                        }
+                    }
                 }
             } catch {
                 print(error)
@@ -72,14 +85,14 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         var deleteTargets:Int?
         print(activePins.count)
         for i in 0..<activePins.count {
-            print(i, activePins[i].annotation?.coordinate.latitude, activePins[i].annotation?.coordinate.longitude)
+//            print(i, activePins[i].annotation?.coordinate.latitude, activePins[i].annotation?.coordinate.longitude)
             let coord1 = CLLocation(latitude: (activePins[i].annotation?.coordinate.latitude)!, longitude: (activePins[i].annotation?.coordinate.longitude)!)
             let coord2 = CLLocation(latitude: myLocation.latitude, longitude: myLocation.longitude)
             let dist = coord1.distance(from: coord2)
-            print(i, dist)
+//            print(i, dist)
 //            print("\(coord1.coordinate.latitude), \(coord1.coordinate.longitude)")
             if dist <= 10 {
-                print("\(i) - In range to pick up \(activePins[i].annotation?.title!!)")
+//                print("\(i) - In range to pick up \(activePins[i].annotation?.title!!)")
                 deleteTargets = i
             }
         }
@@ -199,13 +212,18 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
     
     func generateAnnoLoc() {
         //First we declare While to repeat adding Annotation
-        for _ in 0..<10 {
+        for i in 0..<30 {
             //Add Annotation
             
             
             let annotation = CustomPointAnnotation()
-            
-            annotation.coordinate = generateRandomCoordinates(min: 200, max: 400) //this will be the maximum and minimum distance of the annotation from the current Location (Meters)
+            if  berriesLocation[i][0] != [] {
+                annotation.coordinate.latitude = berriesLocation[i][0]
+                annotation.coordinate.longitude = berriesLocation[i][1]
+            } else {
+                annotation.coordinate = generateRandomCoordinates(min: 200, max: 400)
+            }
+//            annotation.coordinate = generateRandomCoordinates(min: 200, max: 400) //this will be the maximum and minimum distance of the annotation from the current Location (Meters)
             
             let coord = annotation.coordinate
             let coordObject = Coordinates(context: managedObjectContext)
