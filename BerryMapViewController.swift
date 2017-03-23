@@ -29,6 +29,23 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
     var berrySound = NSURL(fileURLWithPath: Bundle.main.path(forResource: "Sound/berrysound", ofType:"mp3")!)
     var audioPlayer = AVAudioPlayer()
     
+    func getBatchLocations() {
+        let url = URL(string: "http://localhost:8000/api/berrylist")
+        let session = URLSession.shared
+        let task = session.dataTask(with: url!, completionHandler: {
+            data, response, error in
+            
+            do {
+                if let jsonResult = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSArray {
+                    print(jsonResult)
+                }
+            } catch {
+                print(error)
+            }
+        })
+        task.resume()
+    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
         // gets latest location of player
@@ -294,7 +311,6 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.requestWhenInUseAuthorization()
@@ -305,6 +321,7 @@ class BerryMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         berryMap.mapType = MKMapType.standard
         berryMap.showsUserLocation = true
         self.fetchAllItems()
+        getBatchLocations()
 //        for i in coordinatesList {
 //            print("\(i): \(i.longitude), \(i.latitude)")
 //        }
