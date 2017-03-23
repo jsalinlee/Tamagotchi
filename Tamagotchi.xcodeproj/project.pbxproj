@@ -23,6 +23,8 @@
 		B2BD39ED1E7B10BF002C051B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2BD39EB1E7B10BF002C051B /* LaunchScreen.storyboard */; };
 		B2BD39F51E7B1ED8002C051B /* Blob.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BD39F41E7B1ED8002C051B /* Blob.swift */; };
 		B2BD39F71E7B31D0002C051B /* InventoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BD39F61E7B31D0002C051B /* InventoryTableViewController.swift */; };
+		D5082B2D1E8326E5006E6710 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5082B2C1E8326E5006E6710 /* loginViewController.swift */; };
+		D5082B2F1E832B04006E6710 /* loginDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5082B2E1E832B04006E6710 /* loginDelegate.swift */; };
 		D5CBD7791E7B793C0099BE54 /* CustomPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CBD7781E7B793C0099BE54 /* CustomPointAnnotation.swift */; };
 		D5CBD77D1E7B9C720099BE54 /* Sound in Resources */ = {isa = PBXBuildFile; fileRef = D5CBD77C1E7B9C720099BE54 /* Sound */; };
 		D5CBD7811E7BD1970099BE54 /* Ground.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CBD7801E7BD1970099BE54 /* Ground.swift */; };
@@ -47,6 +49,8 @@
 		B2BD39EE1E7B10BF002C051B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2BD39F41E7B1ED8002C051B /* Blob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blob.swift; sourceTree = "<group>"; };
 		B2BD39F61E7B31D0002C051B /* InventoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InventoryTableViewController.swift; sourceTree = "<group>"; };
+		D5082B2C1E8326E5006E6710 /* loginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loginViewController.swift; sourceTree = "<group>"; };
+		D5082B2E1E832B04006E6710 /* loginDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loginDelegate.swift; sourceTree = "<group>"; };
 		D5CBD7781E7B793C0099BE54 /* CustomPointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPointAnnotation.swift; sourceTree = "<group>"; };
 		D5CBD77C1E7B9C720099BE54 /* Sound */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sound; sourceTree = "<group>"; };
 		D5CBD7801E7BD1970099BE54 /* Ground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ground.swift; sourceTree = "<group>"; };
@@ -106,9 +110,11 @@
 				B213D89C1E7BAE040016901B /* ActionButtonPressed.swift */,
 				B2BD39E41E7B10BF002C051B /* GameViewController.swift */,
 				B2BD39E61E7B10BF002C051B /* Main.storyboard */,
+				D5082B2C1E8326E5006E6710 /* loginViewController.swift */,
 				B2BD39E91E7B10BF002C051B /* Assets.xcassets */,
 				D5CBD7801E7BD1970099BE54 /* Ground.swift */,
 				D5CBD7781E7B793C0099BE54 /* CustomPointAnnotation.swift */,
+				D5082B2E1E832B04006E6710 /* loginDelegate.swift */,
 				B2BD39EB1E7B10BF002C051B /* LaunchScreen.storyboard */,
 				B2BD39EE1E7B10BF002C051B /* Info.plist */,
 			);
@@ -200,9 +206,11 @@
 				B2BD39F71E7B31D0002C051B /* InventoryTableViewController.swift in Sources */,
 				B284F7A11E7B6146002D06BE /* BerryMapViewController.swift in Sources */,
 				B213D89D1E7BAE040016901B /* ActionButtonPressed.swift in Sources */,
+				D5082B2D1E8326E5006E6710 /* loginViewController.swift in Sources */,
 				B2BD39E31E7B10BF002C051B /* GameScene.swift in Sources */,
 				1BFC854B1E7B742A0098A295 /* SaveGame.xcdatamodeld in Sources */,
 				D5CBD7811E7BD1970099BE54 /* Ground.swift in Sources */,
+				D5082B2F1E832B04006E6710 /* loginDelegate.swift in Sources */,
 				B27099D91E7BF9D400B188BA /* HUD.swift in Sources */,
 				B2BD39E51E7B10BF002C051B /* GameViewController.swift in Sources */,
 				B2BD39DD1E7B10BF002C051B /* AppDelegate.swift in Sources */,
